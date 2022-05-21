@@ -1,0 +1,15 @@
+.login_form {
+    position: absolute;
+    min-width: 300px;
+    background: #fff;
+    padding: 20px 36px;
+    border-radius: 0 10px 10px 10px;
+}
+
+.login_form.false {
+    display: none;
+}
+
+.login_form.true {
+    display: block;
+}

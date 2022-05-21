@@ -1,0 +1,30 @@
+.game_container {
+    margin: auto;
+    width: 260px;
+    height: 500px;
+    background: url('../../public/images/road.png') ;
+    position: relative;
+}
+
+.score {
+    position: absolute;
+    margin-left: -100px;
+    color: #f00;
+    border: 1px solid #f00;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 15px;
+}
+
+.player {
+    width: 49px;
+    height: 97px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: url('../../public/images/car/audi_r8.png');
+}
+
+/* .dieu_khien {
+    opacity: 0;
+} */

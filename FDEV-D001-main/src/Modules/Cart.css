@@ -1,0 +1,71 @@
+.container_cart {
+    position: fixed;
+    top: 20px;
+    right: 0px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px 0 0 10px;
+    padding: 10px;
+    z-index: 9;
+}
+
+.icon_gio_hang {
+    text-align: center;
+}
+
+.container_cart .icon_gio_hang img {
+    width: 40px;
+    height: 40px;
+}
+
+.danh_sach_item_gio_hang {
+    position: fixed;
+    padding: 20px;
+    background: #fff;
+    top: 40px;
+    right: 70px;
+    width: 300px;
+    border: 1px solid #ccc;
+    z-index: 9;
+}
+
+.item_gio_hang {
+    margin: 0 0 10px 0;
+}
+
+.item_gio_hang .hinh_san_pham {
+    width: 40px;
+    margin: 0 10px 0 0;
+}
+
+.item_gio_hang .hinh_san_pham img {
+    width: 100%;
+}
+
+.item_gio_hang {
+    display: flex;
+}
+
+.btn_add_to_cart {
+    position: absolute;
+    bottom: 120px;
+    z-index: 9;
+    left: 70px;
+    opacity: 0;
+}
+
+.btn_view_detail {
+    position: absolute;
+    bottom: 180px;
+    z-index: 9;
+    left: 70px;
+    opacity: 0;
+}
+
+.game-grid:hover .btn_add_to_cart {
+    opacity: 1;
+}
+
+.game-grid:hover .btn_view_detail {
+    opacity: 1;
+}
