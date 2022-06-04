@@ -1,0 +1,4 @@
+Bàn phím|10|150000
+chuột quang|5|80000
+Nước hoa|2|100000
+Tai nghe Logitech|50|250000
