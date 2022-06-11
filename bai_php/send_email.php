@@ -12,8 +12,8 @@ $mail->Host       = "smtp.mandrillapp.com";    // SMTP server example
 $mail->SMTPDebug  = 1;                     // enables SMTP debug information (for testing)
 $mail->SMTPAuth   = true;                  // enable SMTP authentication
 $mail->Port       = 587;                    // set the SMTP port for the GMAIL server
-$mail->Username   = "hungnguyenxuan118@gmail.com";            // SMTP account username example
-$mail->Password   = "hK2Sm70yVCkoVZLl3PEDUQ";            // SMTP account password example
+$mail->Username   = "";            // SMTP account username example
+$mail->Password   = "";            // SMTP account password example
 
 // Content
 $mail->isHTML(true);                       // Set email format to HTML
