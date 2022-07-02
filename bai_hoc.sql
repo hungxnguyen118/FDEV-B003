@@ -423,3 +423,392 @@ SELECT tg.ten_tac_gia, COUNT(s.id) AS so_sach,
     AS nhan_xet
 FROM bs_tac_gia tg JOIN bs_sach s ON s.id_tac_gia = tg.id
 GROUP BY tg.id
+
+
+-- bài 8
+-- câu 3
+INSERT INTO bs_sach_tam
+SELECT *
+FROM bs_sach
+
+-- thống kê sách được ban nhiều nhất trong tháng 6 năm 2016
+CREATE TABLE IF NOT EXISTS bs_sach_ban_nhieu_nhat_6_2016(
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ten_sach` varchar(255) DEFAULT NULL,
+  `id_tac_gia` int(255) DEFAULT NULL,
+  `gioi_thieu` text,
+  `doc_thu` varchar(255) DEFAULT NULL,
+  `id_loai_sach` int(11) DEFAULT NULL,
+  `id_nha_xuat_ban` int(11) DEFAULT NULL,
+  `so_trang` int(11) DEFAULT NULL,
+  `ngay_xuat_ban` varchar(50) DEFAULT NULL,
+  `kich_thuoc` varchar(255) DEFAULT NULL,
+  `sku` varchar(255) DEFAULT NULL,
+  `trong_luong` varchar(255) DEFAULT NULL,
+  `trang_thai` tinyint(4) DEFAULT NULL,
+  `hinh` varchar(255) DEFAULT NULL,
+  `don_gia` int(11) DEFAULT NULL,
+  `gia_bia` int(11) DEFAULT NULL,
+  `noi_bat` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO bs_sach_ban_nhieu_nhat_6_2016
+SELECT id, ten_sach, id_tac_gia, gioi_thieu, doc_thu, id_loai_sach, id_nha_xuat_ban, 
+so_trang, ngay_xuat_ban, kich_thuoc, sku, trong_luong, trang_thai, hinh, don_gia,
+gia_bia, noi_bat
+FROM (
+    SELECT s.*, SUM(so_luong) as tong_so_sach_ban
+    FROM bs_sach s JOIN bs_chi_tiet_don_hang ctdh ON s.id = ctdh.id_sach
+        JOIN bs_don_hang dh ON dh.id = ctdh.id_don_hang
+    WHERE MONTH(ngay_dat) = 6 AND YEAR(ngay_dat) = 2016
+    GROUP BY s.id
+    ORDER BY tong_so_sach_ban DESC
+    LIMIT 5
+) AS temp;
+
+
+
+--câu 4
+CREATE TABLE IF NOT EXISTS bs_sach_nxb_tre(
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ten_sach` varchar(255) DEFAULT NULL,
+  `id_tac_gia` int(255) DEFAULT NULL,
+  `gioi_thieu` text,
+  `doc_thu` varchar(255) DEFAULT NULL,
+  `id_loai_sach` int(11) DEFAULT NULL,
+  `id_nha_xuat_ban` int(11) DEFAULT NULL,
+  `so_trang` int(11) DEFAULT NULL,
+  `ngay_xuat_ban` varchar(50) DEFAULT NULL,
+  `kich_thuoc` varchar(255) DEFAULT NULL,
+  `sku` varchar(255) DEFAULT NULL,
+  `trong_luong` varchar(255) DEFAULT NULL,
+  `trang_thai` tinyint(4) DEFAULT NULL,
+  `hinh` varchar(255) DEFAULT NULL,
+  `don_gia` int(11) DEFAULT NULL,
+  `gia_bia` int(11) DEFAULT NULL,
+  `noi_bat` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO bs_sach_nxb_tre
+SELECT *
+FROM bs_sach
+WHERE id_nha_xuat_ban = (
+    SELECT id
+    FROM bs_nha_xuat_ban
+    WHERE ten_nha_xuat_ban = 'NXB Trẻ'
+);
+
+
+
+-- bài 9
+--câu 1
+SELECT *
+FROM bs_sach
+--WHERE ten_sach = 'Harry Potter 7 Volume Children\'S Paperback Boxed Set'
+
+UPDATE bs_sach
+SET don_gia = 999000
+--WHERE ten_sach = 'Harry Potter 7 Volume Children\'S Paperback Boxed Set';
+
+-- câu 2
+SELECT *
+FROM bs_nguoi_dung
+WHERE tai_khoan = 'admin';
+
+UPDATE bs_nguoi_dung
+SET ho_ten = 'Super User'
+WHERE tai_khoan = 'admin'; 
+
+-- câu 3
+SELECT *
+FROM bs_loai_sach
+WHERE ten_loai_sach = 'Combo - Series Sách Đặc Sắc';
+
+UPDATE bs_loai_sach
+SET ten_loai_sach = 'Tuyển tập sách đặc sắc'
+WHERE ten_loai_sach = 'Combo - Series Sách Đặc Sắc'; 
+
+-- câu 4
+SELECT *
+FROM bs_sach
+WHERE id_nha_xuat_ban = (
+    SELECT id
+    FROM bs_nha_xuat_ban
+    WHERE ten_nha_xuat_ban LIKE '%NXB Kim Đồng%'
+);
+
+UPDATE bs_sach
+SET don_gia = don_gia - 3000
+WHERE id_nha_xuat_ban = (
+    SELECT id
+    FROM bs_nha_xuat_ban
+    WHERE ten_nha_xuat_ban LIKE '%NXB Kim Đồng%'
+);
+
+-- câu 5
+SELECT id
+FROM (
+    SELECT s.id, SUM(so_luong) as tong_so_sach_ban
+    FROM bs_sach s JOIN bs_chi_tiet_don_hang ctdh ON s.id = ctdh.id_sach
+    GROUP BY s.id
+    ORDER BY tong_so_sach_ban DESC
+    LIMIT 10
+) AS temp
+
+UPDATE bs_sach
+SET don_gia = don_gia + don_gia * 0.05
+WHERE id IN (
+    SELECT id
+    FROM (
+        SELECT s.id, SUM(so_luong) as tong_so_sach_ban
+        FROM bs_sach s JOIN bs_chi_tiet_don_hang ctdh ON s.id = ctdh.id_sach
+        GROUP BY s.id
+        ORDER BY tong_so_sach_ban DESC
+        LIMIT 10
+    ) AS temp
+);
+
+-- câu 6
+ALTER TABLE bs_don_hang
+ADD tong_tien_test INT DEFAULT NULL;
+
+SELECT dh.id, SUM(thanh_tien) as tong_tien_test
+FROM bs_don_hang dh JOIN bs_chi_tiet_don_hang ctdh ON dh.id = ctdh.id_don_hang
+GROUP BY dh.id;
+
+UPDATE bs_don_hang
+SET tong_tien_test = (
+    SELECT SUM(thanh_tien) as tong_tien_test
+    FROM bs_don_hang dh JOIN bs_chi_tiet_don_hang ctdh ON dh.id = ctdh.id_don_hang
+    GROUP BY dh.id
+);
+
+
+-- bài 10
+-- câu 1
+SELECT *
+FROm bs_sach
+WHERE id = 91;
+
+DELETE FROM bs_sach
+WHERE id = 91;
+
+-- câu 2
+SELECT *
+FROM bs_sach
+WHERE id_nha_xuat_ban = (
+    SELECT id
+    FROM bs_nha_xuat_ban
+    WHERE ten_nha_xuat_ban = 'Amazon'
+)
+
+DELETE FROM bs_sach
+WHERE id_nha_xuat_ban = (
+    SELECT id
+    FROM bs_nha_xuat_ban
+    WHERE ten_nha_xuat_ban = 'Amazon'
+)
+
+-- câu 3
+SELECT *
+FROM bs_sach
+WHERE don_gia < 50000
+
+DELETe FROM bs_sach
+WHERE don_gia < 50000
+
+-- câu 4
+SELECT *
+FROM bs_sach
+WHERE id_tac_gia = (
+    SELECT id
+    FROM bs_tac_gia
+    WHERE ten_tac_gia = 'Âu Dương Mặc Tâm'
+) AND don_gia > 50000
+
+DELETE FROM bs_sach
+WHERE id_tac_gia = (
+    SELECT id
+    FROM bs_tac_gia
+    WHERE ten_tac_gia = 'Âu Dương Mặc Tâm'
+) AND don_gia > 50000
+
+
+-- câu 5
+SELECT *
+FROM bs_sach
+WHERE id NOT IN (
+    SELECT id
+    FROM bs_sach
+    WHERE gioi_thieu LIKE '%trẻ%'
+);
+
+DELETE FROM bs_sach
+WHERE id NOT IN (
+    SELECT id
+    FROM bs_sach
+    WHERE gioi_thieu LIKE '%trẻ%'
+);
+
+
+-- câu 6
+SELECT *
+FROM bs_nha_xuat_ban
+WHERE id NOT IN (
+    SELECT nxb.id
+    FROM bs_nha_xuat_ban nxb JOIN bs_sach s ON nxb.id = s.id_nha_xuat_ban
+)
+
+
+SELECT nxb.id
+FROM bs_nha_xuat_ban nxb LEFT JOIN bs_sach s ON nxb.id = s.id_nha_xuat_ban
+WHERE s.id IS NULL
+
+
+DELETE FROM bs_nha_xuat_ban
+WHERE id IN (
+    SELECT nxb.id
+    FROM bs_nha_xuat_ban nxb LEFT JOIN bs_sach s ON nxb.id = s.id_nha_xuat_ban
+    WHERE s.id IS NULL
+)
+
+
+-- bài 11
+-- câu 1
+SELECT ho_ten, ngay_sinh, dia_chi
+FROM nhan_vien
+
+-- câu 2
+SELECT ho_ten, cmnd, muc_luong
+FROM nhan_vien
+WHERE ho_ten LIKE 'N%'
+
+-- câu 3
+SELECT ho_ten, cmnd, muc_luong
+FROM nhan_vien
+ORDER BY muc_luong DESC, ho_ten ASC
+
+-- câu 4
+SELECT ho_ten
+FROM nhan_vien
+WHERE id_don_vi = 1
+
+-- câu 5
+SELECT *
+FROM phieu_phan_cong
+WHERE YEAR(ngay_bat_dau) = 2014 AND MONTH(ngay_bat_dau) = 11;
+
+-- câu 6
+SELECT *
+FROM phieu_phan_cong
+WHERE (id_nhan_vien = (
+    SELECT id
+    FROM nhan_vien
+    WHERE ho_ten = 'Trần thanh thụy Lan'
+)
+AND YEAR(ngay_bat_dau) = 2014) AND MONTH(ngay_bat_dau) IN (10, 11, 12);
+
+
+-- câu 7
+SELECT *
+FROM nhan_vien
+WHERE ho_ten LIKE '%Trang%';
+
+-- câu 8
+SELECT *
+FROM nhan_vien
+WHERE muc_luong BETWEEN 5000000 AND 10000000
+ORDER BY muc_luong DESC;
+
+-- câu 9
+SELECT *
+FROM nhan_vien
+WHERE muc_luong > 9000000;
+
+-- câu 10
+SELECT *, COUNT(kn.id_ngoai_ngu) as so_luong_ngon_ngu
+FROM nhan_vien nv JOIN kha_nang kn ON nv.id = kn.id_nhan_vien
+GROUP BY nv.id
+HAVING so_luong_ngon_ngu >= 2;
+
+-- câu 11
+SELECT *, COUNT(kn.id_ngoai_ngu) as so_luong_ngon_ngu
+FROM nhan_vien nv JOIN kha_nang kn ON nv.id = kn.id_nhan_vien
+WHERE id_ngoai_ngu IN (SELECT id
+    FROM ngoai_ngu
+    WHERE ten IN ('Anh', 'Pháp', 'Đức')
+)
+GROUP BY nv.id
+HAVING so_luong_ngon_ngu >= 3;
+
+-- câu 12
+SELECT dv.*, COUNT(nv.id) AS tong_so_nhan_vien
+FROM nhan_vien nv JOIN don_vi dv ON nv.id_don_vi = dv.id
+GROUP BY dv.id;
+
+-- câu 13
+SELECT dv.*, AVG(muc_luong) AS luong_trung_binh
+FROM nhan_vien nv JOIN don_vi dv ON nv.id_don_vi = dv.id
+WHERE ten = 'Đơn vị C'
+GROUP BY dv.id;
+
+-- câu 14
+SELECT lcv.*, COUNT(ppc.id) as tong_so_luong
+FROM loai_cong_viec lcv JOIN phieu_phan_cong ppc ON lcv.id = ppc.id_loai_cong_viec
+GROUP BY lcv.id
+ORDER BY tong_so_luong DESC
+LIMIT 1;
+
+-- câu 15
+SELECT nv.*, YEAR(CURDATE()) - YEAR(ngay_sinh) as tuoi
+FROM nhan_vien nv JOIN don_vi dv ON nv.id_don_vi = dv.id
+WHERE dv.ten = 'Đơn vị D'
+ORDER BY tuoi
+LIMIT 1
+
+-- câu 16
+SELECT dv.*, MIN(muc_luong), MAX(muc_luong)
+FROM nhan_vien nv JOIN don_vi dv ON nv.id_don_vi = dv.id
+GROUP BY dv.id
+
+-- câu 17
+SELECT lcv.*, nc.ten
+FROM loai_cong_viec lcv JOIN yeu_cau yc ON lcv.id = yc.id_loai_cong_viec
+    JOIN ngoai_ngu nc ON nc.id = yc.id_ngoai_ngu
+WHERE nc.ten = 'Brazil'
+
+-- câu 18
+SELECT lcv.*, COUNT(yc.id_ngoai_ngu) AS so_ngoai_ngu_yeu_cau
+FROM loai_cong_viec lcv JOIN yeu_cau yc ON lcv.id = yc.id_loai_cong_viec
+GROUP BY lcv.id
+HAVING so_ngoai_ngu_yeu_cau = 1;
+
+-- câu 19
+SELECT *
+FROM (
+    SELECT temp.id
+    FROM (
+        SELECT nv.id, nv.ho_ten, kn.id_ngoai_ngu
+        FROM nhan_vien nv JOIN kha_nang kn ON nv.id = kn.id_nhan_vien
+        WHERE nv.id = 10
+    ) temp RIGHT JOIN
+    (
+        SELECT lcv.id, lcv.ten, yc.id_ngoai_ngu
+        FROM loai_cong_viec lcv JOIN yeu_cau yc ON lcv.id = yc.id_loai_cong_viec
+        WHERE lcv.id = 1
+    ) temp2
+    ON temp.id_ngoai_ngu = temp2.id_ngoai_ngu
+    WHERE temp.id IS NULL
+) tt
+JOIN
+(
+    SELECT nv.id, ppc.ngay_bat_dau, ppc.so_ngay, ADDDATE(ppc.ngay_bat_dau, ppc.so_ngay) as ngay_ket_thuc, 
+        '2015-01-20' as ngay_start_yc, ADDDATE('2015-01-20', 2) as ngay_stop_yc,
+        IF((ppc.ngay_bat_dau > '2015-01-20' AND ADDDATE(ppc.ngay_bat_dau, ppc.so_ngay) < ADDDATE('2015-01-20', 2)), 'FAIL', 'TRUE') as result
+    FROM nhan_vien nv JOIN phieu_phan_cong ppc ON nv.id = ppc.id_nhan_vien
+    WHERE nv.id = 10
+    HAVING result = 'FAIL'
+) tt2
+ON tt.id = tt2.id
