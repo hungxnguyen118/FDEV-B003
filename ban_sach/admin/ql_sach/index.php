@@ -35,7 +35,7 @@ if (isset($_POST['search'])) {
         <div class="row">
             <div class="col-md-12">
                 <h2>Quản lý Sách </h2>
-                <a href="xu_ly.php">
+                <a href="?page=sach&chuc_nang=them">
                     <button type="button" class="btn btn-large btn-block btn-primary">Thêm sách mới</button>
                 </a>
             </div>
@@ -83,7 +83,7 @@ if (isset($_POST['search'])) {
                             <td><?php echo $sach->gia_bia; ?></td>
                             <td>
 
-                                <a href="xu_ly.php?id=<?php echo $sach->id; ?>">
+                                <a href="?page=sach&chuc_nang=sua&id=<?php echo $sach->id; ?>">
                                     <button type="button" class="btn btn-info">
                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                     </button>

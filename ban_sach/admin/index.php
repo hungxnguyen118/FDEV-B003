@@ -19,8 +19,8 @@ include_once('head.php');
         <?php
         if ($page == 'sach') {
             include_once('../models/xl_sach.php');
-            if ($chuc_nang == 'them' || $chuc_nang == 'sua') {
-                include_once('ql_' . $page . '/xu_ly.php');
+            if ($chuc_nang) {
+                include_once('ql_' . $page . '/' . $chuc_nang . '.php');
             } else {
                 include_once('ql_' . $page . '/index.php');
             }
