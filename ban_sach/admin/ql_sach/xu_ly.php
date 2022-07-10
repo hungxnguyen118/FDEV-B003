@@ -1,13 +1,15 @@
 <?php
 //echo '<pre>',print_r($_POST),'</pre>';
 //echo '<pre>',print_r($_FILES),'</pre>';
-$db = new PDO('mysql:host=localhost;dbname=ban_sach_online_db;charset=utf8', 'root', '');
+// $db = new PDO('mysql:host=localhost;dbname=ban_sach_online_db;charset=utf8', 'root', '');
+$xl_sach = new xl_sach();
 
 if(isset($_GET['id'])){
-    $sql = "SELECT * FROM bs_sach WHERE id = " . $_GET['id'];
-    $sth = $db->prepare($sql);
-    $sth->execute();
-    $sach_can_sua = $sth->fetch(PDO::FETCH_OBJ);
+    // $sql = "SELECT * FROM bs_sach WHERE id = " . $_GET['id'];
+    // $sth = $db->prepare($sql);
+    // $sth->execute();
+    // $sach_can_sua = $sth->fetch(PDO::FETCH_OBJ);
+    $sach_can_sua = $xl_sach->load_thong_tin_sach($_GET['id']);
 
     if(isset($_POST['ten_sach'])){
         $ten_sach = $_POST['ten_sach'];
@@ -41,18 +43,20 @@ if(isset($_GET['id'])){
             }
         }
 
-        $sql = "UPDATE bs_sach
-            SET ten_sach = '$ten_sach',
-            gioi_thieu = '$gioi_thieu',
-            don_gia = '$don_gia',
-            gia_bia = '$gia_bia',
-            trang_thai = '$trang_thai',
-            sku = '$sku',
-            hinh = '$ten_hinh'
-            WHERE id = " .  $_GET['id'];
+        // $sql = "UPDATE bs_sach
+        //     SET ten_sach = '$ten_sach',
+        //     gioi_thieu = '$gioi_thieu',
+        //     don_gia = '$don_gia',
+        //     gia_bia = '$gia_bia',
+        //     trang_thai = '$trang_thai',
+        //     sku = '$sku',
+        //     hinh = '$ten_hinh'
+        //     WHERE id = " .  $_GET['id'];
 
-        //echo $sql;
-        $result = $db->exec($sql);
+        // //echo $sql;
+        // $result = $db->exec($sql);
+        $result = $xl_sach->sua_sach($ten_sach, $gioi_thieu, $don_gia, $gia_bia, $trang_thai, $sku, $ten_hinh, $_GET['id']);
+
         if($result !== false){
             ?>
             <script>
@@ -62,7 +66,11 @@ if(isset($_GET['id'])){
             <?php
         }
         else{
-            echo 'có lỗi trong quá trình sửa sách';
+            ?>
+            <script>
+                alert('có lỗi trong quá trình sửa sách');
+            </script>
+            <?php
         }
     }
 }
@@ -89,14 +97,24 @@ else {
                         echo 'Đã upload thành công';
     
                         
-                        $sql = "INSERT INTO bs_sach(ten_sach, gioi_thieu, don_gia, gia_bia, trang_thai, sku, hinh)
-                                VALUES('$ten_sach', '$gioi_thieu', $don_gia, $gia_bia, '$trang_thai', '$sku', '$ten_hinh')";
-                        $result = $db->exec($sql);
+                        // $sql = "INSERT INTO bs_sach(ten_sach, gioi_thieu, don_gia, gia_bia, trang_thai, sku, hinh)
+                        //         VALUES('$ten_sach', '$gioi_thieu', $don_gia, $gia_bia, '$trang_thai', '$sku', '$ten_hinh')";
+                        // $result = $db->exec($sql);
+                        $result = $xl_sach->them_sach($ten_sach, $gioi_thieu, $don_gia, $gia_bia, $trang_thai, $sku, $ten_hinh);
                         if($result !== false){
-                            echo 'Thêm sách mới thành công';
+                            ?>
+                            <script>
+                                alert('Thêm sách mới thành công');
+                                window.location.href = 'index.php';
+                            </script>
+                            <?php
                         }
                         else{
-                            echo 'có lỗi trong quá trình thêm';
+                            ?>
+                            <script>
+                                alert('có lỗi trong quá trình thêm');
+                            </script>
+                            <?php
                         }
                     }
                     catch(Exception $error){
