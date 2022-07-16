@@ -1,52 +1,6 @@
 <?php
-$xl_sach = new xl_sach();
-if (isset($_POST['ten_sach'])) {
-    $ten_sach = $_POST['ten_sach'];
-    $gioi_thieu = $_POST['gioi_thieu'];
-    $don_gia = $_POST['don_gia'];
-    $gia_bia = $_POST['gia_bia'];
-    $trang_thai = $_POST['trang_thai'];
-    $sku = $_POST['sku'];
-
-    if (isset($_FILES['hinh'])) {
-        $mang_ten_file = explode('.', $_FILES['hinh']['name']);
-        $duoi_file = $mang_ten_file[count($mang_ten_file) - 1];
-
-        $time = time();
-        $ten_hinh = $mang_ten_file[0] . '-' . $time . '.' . $duoi_file;
-
-        if ($duoi_file == 'jpg' || $duoi_file == 'png' || $duoi_file == 'gif' || $duoi_file == 'webp' || $duoi_file == 'svg' || $duoi_file == 'jpeg' || $duoi_file == 'ico') {
-            if ($_FILES['hinh']['size'] < 5244880) {
-                try {
-                    move_uploaded_file($_FILES['hinh']['tmp_name'], '../images/' . $ten_hinh);
-                    echo 'Đã upload thành công';
-
-                    $result = $xl_sach->them_sach($ten_sach, $gioi_thieu, $don_gia, $gia_bia, $trang_thai, $sku, $ten_hinh);
-                    if ($result !== false) {
-?>
-                        <script>
-                            alert('Thêm sách mới thành công');
-                            window.location.href = 'index.php?page=<?= $_GET['page'] ?>';
-                        </script>
-                    <?php
-                    } else {
-                    ?>
-                        <script>
-                            alert('có lỗi trong quá trình thêm');
-                        </script>
-<?php
-                    }
-                } catch (Exception $error) {
-                    echo 'Upload thất bại ' . $error;
-                }
-            } else {
-                echo 'Đi nén dùm tôi, hình mà hơn 5MB ';
-            }
-        } else {
-            echo 'File không hợp lệ ';
-        }
-    }
-} else {
+if(isset($result)){
+    notice_after_delete_database($result, 'Thêm sách mới thành công', 'có lỗi trong quá trình thêm', $_GET['page']);
 }
 ?>
 
@@ -120,12 +74,8 @@ if (isset($_POST['ten_sach'])) {
                 </div>
                 <div class="col-sm-10">
                     <select name="trang_thai" id="" class="form-control">
-                        <option value="1" <?php if ($sach_can_sua) {
-                                                if ($sach_can_sua->trang_thai == 1) echo 'checked="checked"';
-                                            } ?>>Hiển thị</option>
-                        <option value="0" <?php if ($sach_can_sua) {
-                                                if ($sach_can_sua->trang_thai == 0) echo 'checked="checked"';
-                                            } ?>>Ẩn sách</option>
+                        <option value="1">Hiển thị</option>
+                        <option value="0">Ẩn sách</option>
                     </select>
                     <p class="help-block">Help text here.</p>
                 </div>

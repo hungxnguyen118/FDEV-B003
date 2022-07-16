@@ -27,10 +27,10 @@
     </style>
 
     <script>
-        function check_notice(id_sach_can_xoa){
+        function check_notice(id_sach_can_xoa, page){
             var kq = confirm('Bạn có chắc chắn là muốn xóa sách có ID ' + id_sach_can_xoa);
             if(kq){
-                window.location.href = '?id_xoa=' + id_sach_can_xoa;
+                window.location.href = '?page=' + page + '&id_xoa=' + id_sach_can_xoa;
             }
         }
     </script>

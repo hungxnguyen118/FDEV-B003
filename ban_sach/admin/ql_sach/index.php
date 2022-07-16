@@ -1,34 +1,8 @@
 <?php
-
-$xl_sach = new xl_sach();
-
-if (isset($_GET['id_xoa'])) {
-    // $sql_xoa = "DELETE FROM bs_sach WHERE id = " . $_GET['id_xoa'];
-    // $result = $db->exec($sql_xoa);
-    $result = $xl_sach->xoa_sach($_GET['id_xoa']);
-    if ($result !== false) {
-?>
-        <script>
-            alert('Đã xóa sách có id <?php echo $_GET['id_xoa'] ?>');
-        </script>
-    <?php
-    } else {
-    ?>
-        <script>
-            alert('Bị lỗi trong quá trình xóa sách id <?php echo $_GET['id_xoa'] ?>');
-        </script>
-<?php
-    }
+if(isset($result)){
+    notice_after_delete_database($result, 'Đã xóa sách có id ' . $_GET['id_xoa'], 'Bị lỗi trong quá trình xóa sách id ' . $_GET['id_xoa']);
 }
-
-if (isset($_POST['search'])) {
-    $ds_sach = $xl_sach->load_danh_sach_sach($_POST['search']);
-} else {
-    $ds_sach = $xl_sach->load_danh_sach_sach();
-}
-
 ?>
-
 <!-- /. NAV SIDE  -->
 <div id="page-wrapper">
     <div id="page-inner">
@@ -88,7 +62,7 @@ if (isset($_POST['search'])) {
                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                     </button>
                                 </a>
-                                <button onclick="check_notice(<?php echo $sach->id; ?>)" type="button" class="btn btn-danger">
+                                <button onclick="check_notice(<?php echo $sach->id; ?>, '<?= $page ?>')" type="button" class="btn btn-danger">
                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                 </button>
 
