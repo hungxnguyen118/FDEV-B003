@@ -28,7 +28,19 @@ include_once('head.php');
             } else {
                 $controller->index();
             }
-        } else {
+        } 
+        if($page == 'loai_sach'){
+            include_once('../models/xl_loai_sach.php');
+            include_once('controller/c_loai_sach.php');
+            $controller = new c_loai_sach($page);
+
+            if ($chuc_nang) {
+                $controller->$chuc_nang();
+            } else {
+                $controller->index();
+            }
+        }
+        else {
             include_once('thong_ke/index.php');
         }
         ?>

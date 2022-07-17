@@ -9,6 +9,9 @@
             <li>
                 <a href="?page=sach"><i class="fa fa-table "></i><span class="badge">Quản lý Sách</span></a>
             </li>
+            <li>
+                <a href="?page=loai_sach"><i class="fa fa-table "></i><span class="badge">Quản lý Loại Sách</span></a>
+            </li>
             <!-- <li>
                 <a href="index.html"><i class="fa fa-desktop "></i>Dashboard <span class="badge">Included</span></a>
             </li>

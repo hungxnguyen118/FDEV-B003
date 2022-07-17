@@ -25,7 +25,7 @@ class c_sach {
             $ds_sach = $this->xl_sach->load_danh_sach_sach();
         }
 
-        include_once('ql_' . $this->page . '/index.php');
+        include_once('view/ql_' . $this->page . '/index.php');
     }
 
     function them(){
@@ -65,7 +65,7 @@ class c_sach {
         } else {
         }
 
-        include_once('ql_' . $this->page . '/them.php');
+        include_once('view/ql_' . $this->page . '/them.php');
     }
 
     function sua(){
@@ -106,7 +106,7 @@ class c_sach {
             }
         }
 
-        include_once('ql_' . $this->page . '/sua.php');
+        include_once('view/ql_' . $this->page . '/sua.php');
     }
 }
 ?>
