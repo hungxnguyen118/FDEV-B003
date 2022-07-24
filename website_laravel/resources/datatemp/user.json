@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "username": "hungnguyen",
+        "fullname": "Hùng Nguyễn",
+        "email": "hungnguyenxuan118@gmail.com",
+        "introduction": "<h2>Tôi là Lập trình viên</h2><div>Tôi rất thích đi du lịch bằng xe mô tô</div>"
+    },
+    {
+        "id": 2,
+        "username": "vinhle",
+        "fullname": "Vinh Lê",
+        "email": "vinhle@gmail.com",
+        "introduction": "<h2>Tôi là Web Developer</h2><div>Thích chơi game</div>"
+    },
+    {
+        "id": 3,
+        "username": "toannguyen",
+        "fullname": "Toàn Nguyễn",
+        "email": "toannguyen@gmail.com",
+        "introduction": "<h2>Tôi là FreeClancer</h2><div>Tôi rất thích bốc phét</div>"
+    }
+]
