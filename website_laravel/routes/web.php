@@ -41,3 +41,10 @@ Route::resource('/test-resource', App\Http\Controllers\TestResourceController::c
 Route::get('thu-nghiem/{id_user}', 'App\Http\Controllers\test_controller@xu_ly_truyen_bien');
 
 Route::get('/danh-sach-user', 'App\Http\Controllers\test_controller@danh_sach_user');
+
+Route::get('/lien-he', 'App\Http\Controllers\NormalController@trang_lien_he');
+
+Route::post('/lien-he', [
+    'as' => 'save_lien_he',
+    'uses' => 'App\Http\Controllers\NormalController@save_lien_he'
+]);
