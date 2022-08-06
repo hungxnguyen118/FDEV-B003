@@ -48,3 +48,23 @@ Route::post('/lien-he', [
     'as' => 'save_lien_he',
     'uses' => 'App\Http\Controllers\NormalController@save_lien_he'
 ]);
+
+
+Route::get('/upload', 'App\Http\Controllers\NormalController@upload_file_view');
+
+Route::post('/upload', [
+    'as' => 'upload_file',
+    'uses' => 'App\Http\Controllers\NormalController@upload_file'
+]);
+
+Route::post('/upload_multi', [
+    'as' => 'upload_multi_file',
+    'uses' => 'App\Http\Controllers\NormalController@upload_multi_file'
+]);
+
+Route::post('/login', [
+    'as' => 'login',
+    'uses' => 'App\Http\Controllers\UserController@login'
+]);
+
+Route::get('logout', 'App\Http\Controllers\UserController@logout');
