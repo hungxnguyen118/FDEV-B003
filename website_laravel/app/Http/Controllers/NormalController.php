@@ -3,11 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use App\Http\Requests\LienHeRequest;
+
+use DB;
 
 class NormalController extends Controller
 {
     //
+    function index(Request $request){
+        $user_info = $request->cookie('user_info', '');
+        //echo $user_info;
+        $user_info = json_decode($user_info, true);
+        //echo '<pre>',print_r($user_info),'</pre>';
+        Session::put('user_info', $user_info);
+
+        $ds_sach_noi_bat = DB::select('SELECT * FROM bs_sach s JOIN bs_tac_gia tg ON s.id_tac_gia = tg.id  WHERE noi_bat = 1');
+        //echo '<pre>',print_r($ds_dsach_noi_bat),'</pre>';
+
+        return view('trang_chu')->with('ds_sach_noi_bat', $ds_sach_noi_bat);
+        //return '123';
+    }
+
     function trang_lien_he(){
         return view('trang_lien_he');
     }

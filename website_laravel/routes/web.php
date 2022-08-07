@@ -13,15 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('trang_chu');
-    //return '123';
-});
+Route::get('/', 'App\Http\Controllers\NormalController@index');
 
-Route::get('/sach/{id_sach}', function () {
-    return view('trang_chi_tiet_sach');
-    //return '123';
-});
+Route::get('/sach/{id_sach}', 'App\Http\Controllers\SachController@show');
 
 
 Route::get('/trang-chao', function () {
