@@ -62,3 +62,12 @@ Route::post('/login', [
 ]);
 
 Route::get('logout', 'App\Http\Controllers\UserController@logout');
+
+Route::get('/danh-sach-sach', 'App\Http\Controllers\SachController@index');
+
+Route::get('/dang-ky', 'App\Http\Controllers\UserController@create');
+
+Route::post('/dang-ky', [
+    'as' => 'dang_ky_post',
+    'uses' => 'App\Http\Controllers\UserController@store'
+]);

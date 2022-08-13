@@ -31,7 +31,7 @@
             <div class="modal-footer">
                 <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span
                         class="glyphicon glyphicon-remove"></span> Thoát</button>
-                <p>Bạn chưa là thành viên? <a href="dang_ky.php">Đăng ký</a></p>
+                <p>Bạn chưa là thành viên? <a href="/dang-ky">Đăng ký</a></p>
             </div>
         </div>
 

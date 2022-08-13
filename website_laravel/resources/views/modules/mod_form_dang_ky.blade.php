@@ -4,7 +4,7 @@
         <img id="avatar_image" style="width: 100%;" src="images/no_image.png">
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-        <form action="" method="POST" class="form-horizontal" role="form" enctype="multipart/form-data">
+        {!! Form::open(['route' => 'dang_ky_post']) !!}
             <div class="form-group">
                 <legend>Đăng ký làm thành viên</legend>
             </div>
@@ -93,6 +93,6 @@
                     <button type="submit" class="btn btn-primary" style="padding: 5px 30px">Đăng ký</button>
                 </div>
             </div>
-        </form>
+        {!!Form::close()!!}
     </div>
 </section>

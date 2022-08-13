@@ -15,7 +15,24 @@ class SachController extends Controller
      */
     public function index()
     {
+        $id_loai_sach = isset($_GET['id_loai_sach'])?$_GET['id_loai_sach']:'';
+        $search = isset($_GET['search'])?$_GET['search']:'';
+
+        $ds_loai_sach = DB::table('bs_loai_sach')->get();
+
         //
+        $ds_sach = DB::table('bs_sach')
+        ->select('bs_sach.id','hinh', 'ten_sach', 'don_gia', 'gia_bia', 'ten_tac_gia')
+        ->join('bs_tac_gia', 'bs_sach.id_tac_gia', '=', 'bs_tac_gia.id')
+        ->where('id_loai_sach', $id_loai_sach)
+        ->where('ten_sach', 'LIKE', "%$search%")
+        ->get();
+        //echo '<pre>',print_r($ds_sach),'</pre>';
+        return view('ds_sach')
+            ->with('ds_sach', $ds_sach)
+            ->with('ds_loai_sach', $ds_loai_sach)
+            ->with('id_loai_sach', $id_loai_sach)
+            ->with('search', $search);
     }
 
     /**
