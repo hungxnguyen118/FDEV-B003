@@ -3,7 +3,7 @@
     @foreach($ds_sach as $sach)
         <div class="col-sm-6 col-md-3 col-lg-3">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 item_sp_noi_bat">
-                <a href="chi_tiet_sach.php?id_sach=2">
+                <a href="/sach/{{$sach->id}}">
                     <div class="hinh_sach">
                         <img src="images/sach/{{$sach->hinh}}">
                     </div>

@@ -71,3 +71,7 @@ Route::post('/dang-ky', [
     'as' => 'dang_ky_post',
     'uses' => 'App\Http\Controllers\UserController@store'
 ]);
+
+Route::get('/sach-theo-loai/{id_loai_sach}', 'App\Http\Controllers\SachController@sach_theo_loai');
+
+Route::get('/tin-tuc', 'App\Http\Controllers\TinTucController@index');

@@ -90,164 +90,27 @@
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle">Danh mục sách</a>
                         <ul class="dropdown-menu" id="menu1">
-                            <li>
-                                <a href="sach_theo_loai.php?loai_sach=1">Sách Tiếng Anh</a>
-                            </li>
-                            <li class="dropdown-submenu">
-                                <a href="sach_theo_loai.php?loai_sach=2">Sách Văn Học - Tiểu Thuyết</a>
+                            @foreach ($ds_loai_sach as $loai_sach)
+                            <li 
+                            @if(isset($loai_sach->ds_con))
+                                @if(count($loai_sach->ds_con) > 0)
+                                    class="dropdown-submenu"
+                                @endif
+                            @endif>
+                                <a href="/sach-theo-loai/{{$loai_sach->id}}">{{$loai_sach->ten_loai_sach}}</a>
+                                @if(isset($loai_sach->ds_con))
                                 <ul class="dropdown-menu hidden-xs hidden-sm">
-                                    <li><a href="sach_theo_loai.php?loai_sach=15">Hài Hước - Truyện Cười</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=16">Văn Học Việt Nam</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=17">Huyền Bí - Giả Tưởng</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=18">Văn Học Nước Ngoài</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=19">Kinh Dị</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=20">Tác Phẩm Kinh Điển</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=21">Thơ</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=22">Tiểu Sử - Hồi Ký</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=23">Tiểu Thuyết Tình Cảm</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=24">Truyện Trinh Thám</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=25">Truyện Ngắn - Tản Văn</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=26">Truyện Kiếm Hiệp - Phiêu Lưu</a>
-                                    </li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=27">Đam Mỹ</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=28">Truyện Ngôn Tình</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=29">Du Ký</a></li>
+                                    @foreach($loai_sach->ds_con as $loai_con)
+                                    <li><a href="/sach-theo-loai/{{$loai_con->id}}">{{$loai_con->ten_loai_sach}}</a></li>
+                                    @endforeach
                                 </ul>
+                                @endif
                             </li>
-                            <li class="dropdown-submenu">
-                                <a href="sach_theo_loai.php?loai_sach=3">Sách Kinh Tế</a>
-                                <ul class="dropdown-menu hidden-xs hidden-sm">
-                                    <li><a href="sach_theo_loai.php?loai_sach=30">Bài Học Kinh Doanh</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=31">Doanh Nhân</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=32">Khởi Nghiệp</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=33">Kinh Tế Học</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=34">Kỹ Năng Làm Việc</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=35">Marketing - Bán Hàng</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=36">Quản Trị - Lãnh Đạo</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=37">Quản Trị Nhân Lực</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=38">Tài Chính - Kế Toán</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu">
-                                <a href="sach_theo_loai.php?loai_sach=4">Sách Chuyên Ngành</a>
-                                <ul class="dropdown-menu hidden-xs hidden-sm">
-                                    <li><a href="sach_theo_loai.php?loai_sach=39">Báo Chí</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=40">Chính Trị - Triết Học</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=41">Công Nghệ Thông Tin</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=42">Giáo Dục</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=43">Khoa Học Tự Nhiên</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=44">Kỹ Thuật</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=45">Lịch Sử - Địa Lý</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=46">Mỹ Thuật - Kiến Trúc - Nhiếp
-                                            Ảnh</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=47">Nông Lâm Nghiệp</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=48">Pháp Luật</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=49">Tâm Lý - Thần Học</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=50">Y Dược</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=51">Lĩnh Vực Khác</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu">
-                                <a href="sach_theo_loai.php?loai_sach=5">Sách Nuôi Dạy Con</a>
-                                <ul class="dropdown-menu hidden-xs hidden-sm">
-                                    <li><a href="sach_theo_loai.php?loai_sach=52">Giúp Bé Lớn Khôn</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=53">Kỹ Năng Cho Bé</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=54">Làm Cha Mẹ</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=55">Dinh Dưỡng - Sức Khỏe Cho Trẻ</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu">
-                                <a href="sach_theo_loai.php?loai_sach=6">Sách Kỹ Năng</a>
-                                <ul class="dropdown-menu hidden-xs hidden-sm">
-                                    <li><a href="sach_theo_loai.php?loai_sach=56">Kỹ Năng Sống</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=57">Nghệ Thuật Sống Đẹp</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu">
-                                <a href="sach_theo_loai.php?loai_sach=7">Sách Giáo Khoa - Tham Khao</a>
-                                <ul class="dropdown-menu hidden-xs hidden-sm">
-                                    <li><a href="sach_theo_loai.php?loai_sach=58">Sách Tham Khảo</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=59">Sách Giáo Khoa</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu">
-                                <a href="sach_theo_loai.php?loai_sach=8">Sách Cho Tuổi Mới Lớn</a>
-                                <ul class="dropdown-menu hidden-xs hidden-sm">
-                                    <li><a href="sach_theo_loai.php?loai_sach=60">Hướng Nghiệp - Kỹ Năng</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=61">Tâm Lý Tuổi Mới Lớn</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=62">Truyện Cho Tuối Mới Lớn</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu">
-                                <a href="sach_theo_loai.php?loai_sach=9">Sách Truyện Thiếu Nhi</a>
-                                <ul class="dropdown-menu hidden-xs hidden-sm">
-                                    <li><a href="sach_theo_loai.php?loai_sach=63">Nhi Đồng (6 -11 tuổi)</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=64">Truyện Tranh Thiếu Nhi</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=65">Thiếu Niên (11 - 15 tuổi)</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=66">Bài Học Đạo Đức</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=67">Truyện Kể Cho Bé</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=68">Vừa Học Vừa Chơi</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=69">Truyện Cổ Tích</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=70">Văn Học Thiếu Nhi</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=71">Kiến Thức - Kỹ Năng</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu">
-                                <a href="sach_theo_loai.php?loai_sach=10">Sách Thưởng Thức - Đời Sống</a>
-                                <ul class="dropdown-menu hidden-xs hidden-sm">
-                                    <li><a href="sach_theo_loai.php?loai_sach=72">Chăm Sóc Sức Khỏe</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=73">Làm Vườn - Vật Nuôi</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=74">Nấu Ăn</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=75">Nuôi Dạy Con - Chăm Sóc Gia
-                                            Đình</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=76">Phong Thủy - Nhà Cửa</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=77">Tâm Lý - Giới Tính</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=78">Trò Chơi - Giải Trí</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=79">Làm Đẹp</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu">
-                                <a href="sach_theo_loai.php?loai_sach=11">Truyện Tranh, Manga, Comic</a>
-                                <ul class="dropdown-menu hidden-xs hidden-sm">
-                                    <li><a href="sach_theo_loai.php?loai_sach=80">Truyện Tranh Doremon</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=81">Truyện Tranh Việt</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=82">Shin - Cậu Bé Bút Chì</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=83">Conan - Thám Tử Lừng Danh</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=84">One Piece</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=85">Asari - Cô Bé Tinh Nghịch</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=86">Đội Quân Nhí Nhố</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=87">Ô Long Viện</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=88">Lucky Luke</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu">
-                                <a href="sach_theo_loai.php?loai_sach=12">Sách Văn Hóa - Nghệ Thuật - Du lịch</a>
-                                <ul class="dropdown-menu hidden-xs hidden-sm">
-                                    <li><a href="sach_theo_loai.php?loai_sach=89">Danh Nhân - Người Nổi Tiếng</a>
-                                    </li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=90">Du lịch - Văn Hóa</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=91">Nghệ Thuật</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=92">Tâm Linh - Tôn Giáo</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu">
-                                <a href="sach_theo_loai.php?loai_sach=13">Tạp Chí</a>
-                                <ul class="dropdown-menu hidden-xs hidden-sm">
-                                    <li><a href="sach_theo_loai.php?loai_sach=93">MerryWedding</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu">
-                                <a href="sach_theo_loai.php?loai_sach=14">Combo - Series Sách Đặc Sắc</a>
-                                <ul class="dropdown-menu hidden-xs hidden-sm">
-                                    <li><a href="sach_theo_loai.php?loai_sach=94">Giải Mã Mê Cung</a></li>
-                                    <li><a href="sach_theo_loai.php?loai_sach=95">Đấu Trường Sinh Tử</a></li>
-                                </ul>
-                            </li>
+                            @endforeach
                         </ul>
                     </li>
-                    <li><a href="tin_tuc_blog.php">Tin tức</a></li>
-                    <li><a href="lien_he.php">Liên hệ</a></li>
+                    <li><a href="/tin-tuc">Tin tức</a></li>
+                    <li><a href="/lien-he">Liên hệ</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>

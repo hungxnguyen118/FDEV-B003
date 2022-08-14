@@ -66,12 +66,25 @@ class SachController extends Controller
     {
         //
         //echo $id_sach;
-        $thong_tin_sach = DB::select('SELECT * 
-            FROM bs_sach s JOIN bs_tac_gia tg ON s.id_tac_gia = tg.id 
-            WHERE s.id = ?', [$id_sach]);
-        echo '<pre>',print_r($thong_tin_sach),'</pre>';
+        $thong_tin_sach = DB::table('bs_sach')
+        ->select('bs_sach.*', 'ten_tac_gia')
+        ->join('bs_tac_gia', 'bs_sach.id_tac_gia', '=', 'bs_tac_gia.id')
+        ->where('bs_sach.id', $id_sach)
+        ->first();
+        //echo '<pre>',print_r($thong_tin_sach),'</pre>';
 
-        return view('trang_chi_tiet_sach');
+        //echo $thong_tin_sach->doc_thu;
+        if($thong_tin_sach->doc_thu){
+            $doc_thu_html = file_get_contents(public_path() . '/' . $thong_tin_sach->doc_thu);
+        }
+        else {
+            $doc_thu_html = '';
+        }
+        //echo $doc_thu_html;
+
+        return view('trang_chi_tiet_sach')
+        ->with('thong_tin_sach', $thong_tin_sach)
+        ->with('doc_thu', $doc_thu_html);
         //return '123';
     }
 
@@ -107,5 +120,16 @@ class SachController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function sach_theo_loai($id_loai_sach){
+        //echo $id_loai_sach;
+        $ds_sach = DB::table('bs_sach')
+        ->select('bs_sach.id','hinh', 'ten_sach', 'don_gia', 'gia_bia', 'ten_tac_gia')
+        ->join('bs_tac_gia', 'bs_sach.id_tac_gia', '=', 'bs_tac_gia.id')
+        ->where('id_loai_sach', $id_loai_sach)
+        ->get();
+
+        return view('trang_sach_theo_loai')->with('ds_sach', $ds_sach);
     }
 }
