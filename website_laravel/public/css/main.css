@@ -427,3 +427,15 @@ footer.footer-content .footer-trust img{
 }
 
 /* END css trang blog list tin tuc */
+
+
+.number_item_in_cart {
+    position: absolute;
+    background: #f00;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px 10px 10px 0;
+    top: -25px;
+    left: 30px;
+	animation: gio_hang 1s infinite;
+}

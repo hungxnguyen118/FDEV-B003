@@ -75,3 +75,7 @@ Route::post('/dang-ky', [
 Route::get('/sach-theo-loai/{id_loai_sach}', 'App\Http\Controllers\SachController@sach_theo_loai');
 
 Route::get('/tin-tuc', 'App\Http\Controllers\TinTucController@index');
+
+Route::post('/cart', 'App\Http\Controllers\CartController@store');
+
+Route::get('/gio-hang', 'App\Http\Controllers\CartController@index');

@@ -19,7 +19,7 @@
                             <div class="don_gia_ban">{{$sach_noi_bat->don_gia}} ₫</div>
                             <div class="don_gia_bia">{{$sach_noi_bat->gia_bia}} ₫ </div>
                         </a><a href="them_vao_gio_hang.php?id_sach=2">
-                            <div class="btn_mua_ngay">Mua Ngay</div>
+                            <div class="btn_mua_ngay" onclick="process_add_to_cart(event, '{{$sach_noi_bat->id}}')">Mua Ngay</div>
                         </a>
                     </div>
 
