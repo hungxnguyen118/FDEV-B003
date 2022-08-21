@@ -114,9 +114,9 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        @if(session()->has('gio_hang'))
-                        <div class="number_item_in_cart">{{session('tong_so_luong')}}</div>
-                        @endif
+                        
+                        <div class="number_item_in_cart" style="@if(session()->has('gio_hang'))display: block @else display: none @endif">{{session('tong_so_luong')}}</div>
+                        
                         <a href="/gio-hang">
                             <span class="glyphicon glyphicon-shopping-cart"></span>
                         </a>

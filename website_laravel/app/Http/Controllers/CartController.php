@@ -127,7 +127,26 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //echo $id . ' - ' . $request->get('so_luong');
+        $so_luong = $request->get('so_luong');
+        $tong_so_luong = 0;
+        $gio_hang = [];
+        if(Session::has('gio_hang')){
+            $gio_hang = Session::get('gio_hang');
+            foreach($gio_hang as $item_gio_hang){
+                if($item_gio_hang->id == $id){
+                    $item_gio_hang->so_luong = $so_luong;
+                    break;
+                }
+            }
+            Session::put('gio_hang', $gio_hang);
+            foreach($gio_hang as $item){
+                $tong_so_luong += $item->so_luong;
+            }
+            Session::put('tong_so_luong', $tong_so_luong);
+        }
+
+        return response()->json($gio_hang);
     }
 
     /**
@@ -138,6 +157,31 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //echo $id;
+        $tong_so_luong = 0;
+        $gio_hang = [];
+        if(Session::has('gio_hang')){
+            $gio_hang = Session::get('gio_hang');
+            foreach($gio_hang as $key => $item_gio_hang){
+                if($item_gio_hang->id == $id){
+                    array_splice($gio_hang, $key, 1);
+                    break;
+                }
+            }
+            Session::put('gio_hang', $gio_hang);
+
+            foreach($gio_hang as $item){
+                $tong_so_luong += $item->so_luong;
+            }
+            Session::put('tong_so_luong', $tong_so_luong);
+        }
+
+        return response()->json($gio_hang);
+    }
+
+    function destroy_cart(){
+        Session::forget('gio_hang');
+        Session::forget('tong_so_luong');
+        echo '1';
     }
 }

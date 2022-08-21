@@ -78,4 +78,10 @@ Route::get('/tin-tuc', 'App\Http\Controllers\TinTucController@index');
 
 Route::post('/cart', 'App\Http\Controllers\CartController@store');
 
+Route::put('/cart/{id}', 'App\Http\Controllers\CartController@update');
+
+Route::delete('/cart/{id}', 'App\Http\Controllers\CartController@destroy');
+
+Route::delete('/cart', 'App\Http\Controllers\CartController@destroy_cart');
+
 Route::get('/gio-hang', 'App\Http\Controllers\CartController@index');
