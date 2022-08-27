@@ -16,16 +16,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
-        $tong_tien = 0;
-        if(Session::has('gio_hang')){
-            $gio_hang = Session::get('gio_hang');
-            foreach($gio_hang as $item_gio_hang){
-                $tong_tien += $item_gio_hang->don_gia * $item_gio_hang->so_luong;
-            }
-        }
-
-        return view('trang_gio_hang')->with('tong_tien', $tong_tien);
+        return view('trang_gio_hang')->with('thanh_toan', 0);
     }
 
     /**
@@ -91,6 +82,7 @@ class CartController extends Controller
         }
 
         Session::put('tong_so_luong', $tong_so_luong);
+        $this->tinh_tong_tien_gio_hang();
 
         //echo '<pre>',print_r($gio_hang),'</pre>';
         return response()->json($gio_hang);
@@ -146,6 +138,8 @@ class CartController extends Controller
             Session::put('tong_so_luong', $tong_so_luong);
         }
 
+        $this->tinh_tong_tien_gio_hang();
+
         return response()->json($gio_hang);
     }
 
@@ -176,12 +170,26 @@ class CartController extends Controller
             Session::put('tong_so_luong', $tong_so_luong);
         }
 
+        $this->tinh_tong_tien_gio_hang();
         return response()->json($gio_hang);
     }
 
     function destroy_cart(){
         Session::forget('gio_hang');
         Session::forget('tong_so_luong');
+        Session::forget('tong_tien');
         echo '1';
+    }
+
+    function tinh_tong_tien_gio_hang(){
+        $tong_tien = 0;
+        if(Session::has('gio_hang')){
+            $gio_hang = Session::get('gio_hang');
+            foreach($gio_hang as $item_gio_hang){
+                $tong_tien += $item_gio_hang->don_gia * $item_gio_hang->so_luong;
+            }
+        }
+
+        Session::put('tong_tien', $tong_tien);
     }
 }

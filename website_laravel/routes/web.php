@@ -85,3 +85,7 @@ Route::delete('/cart/{id}', 'App\Http\Controllers\CartController@destroy');
 Route::delete('/cart', 'App\Http\Controllers\CartController@destroy_cart');
 
 Route::get('/gio-hang', 'App\Http\Controllers\CartController@index');
+
+Route::get('/thanh-toan', 'App\Http\Controllers\OrderController@index');
+
+Route::post('/thanh-toan', 'App\Http\Controllers\OrderController@store');

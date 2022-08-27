@@ -5,6 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 
+use Illuminate\Support\Facades\Blade;
+use Money\Money;
+
 use DB;
 
 class AppServiceProvider extends ServiceProvider
@@ -44,5 +47,10 @@ class AppServiceProvider extends ServiceProvider
 
         //echo '<pre>',print_r($ds_loai_sach_cap_1),'</pre>';
         View::share('ds_loai_sach', $ds_loai_sach_cap_1);
+
+
+        Blade::directive('convert_money', function ($money) {
+            return "<?php echo number_format($money, 0, '', '.'); ?>";
+        });
     }
 }

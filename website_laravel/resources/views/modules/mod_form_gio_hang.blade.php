@@ -20,29 +20,42 @@
                         <td>{{$item_gio_hang->sku}}</td>
                         <td style="min-width: 100px;"><a href="/sach/{{$item_gio_hang->id}}">
                             {{$item_gio_hang->ten_sach}}</a></td>
-                        <td>{{$item_gio_hang->don_gia}} ₫</td>
-                        <td><input type="number" onchange="process_change_item_gio_hang(event, '{{$item_gio_hang->id}}')" name="so_luong[]" value="{{$item_gio_hang->so_luong}}"></td>
-                        <td id="thanh_tien_{{$item_gio_hang->id}}" style="text-align: right;">{{$item_gio_hang->so_luong * $item_gio_hang->don_gia}} ₫</td>
+                        <td>@convert_money($item_gio_hang->don_gia) ₫</td>
+                        @if($thanh_toan == 1)
+                            <td>{{$item_gio_hang->so_luong}}</td>
+                        @else
+                            <td><input type="number" onchange="process_change_item_gio_hang(event, '{{$item_gio_hang->id}}')" name="so_luong[]" value="{{$item_gio_hang->so_luong}}"></td>
+                        @endif
+                        
+                        <td id="thanh_tien_{{$item_gio_hang->id}}" style="text-align: right;">@convert_money($item_gio_hang->so_luong * $item_gio_hang->don_gia) ₫</td>
                     </tr>
                     @endforeach
                 @endif
 
                 <tr class="tong_tien">
                     <td colspan="4" style="text-align: right;">Tổng cộng: </td>
-                    <td id="tong_tien" style="text-align: right;">{{$tong_tien}} ₫</td>
+                    <td id="tong_tien" style="text-align: right;">@convert_money(session('tong_tien')) ₫</td>
                 </tr>
                 <tr>
                     <td colspan="5">
+                        @if($thanh_toan == 1)
+                        <div class="ds_nut_dieu_khien">
+                            <a href="/gio-hang">
+                                <div class="btn btn-danger">Trở về giỏ hàng</div>
+                            </a>
+                        </div>
+                        @else
                         <div class="ds_nut_dieu_khien">
                             {{-- <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span>
                                 Cập nhật</button> --}}
                             <div onclick="process_destroy_cart()" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Hủy giỏ
                                 hàng</div>
-                            <a href="trang_thanh_toan.php">
+                            <a href="/thanh-toan">
                                 <div class="btn btn-primary"><span class="glyphicon glyphicon-credit-card"></span> Thanh
                                     toán</div>
                             </a>
                         </div>
+                        @endif
                     </td>
                 </tr>
             </tbody>
