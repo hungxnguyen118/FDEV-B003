@@ -14,13 +14,40 @@ class UserController extends Controller
     public function login(Request $request){
         $ten_dang_nhap = $request->get('ten_dang_nhap');
         $mat_khau = $request->get('mat_khau');
+        $admin_login = $request->get('admin_login');
 
         //echo $ten_dang_nhap . ' - ' . $mat_khau;
-        if($ten_dang_nhap == 'hungnguyen' && $mat_khau == '123456'){
-            $user_info = ['ten_dang_nhap' => $ten_dang_nhap, 'ho_ten' => 'Hùng Nguyễn'];
-            //Session::put('user_info', $user_info);
-            $cookie = Cookie::make('user_info', json_encode($user_info), 24 * 60);
-            return redirect($_SERVER['HTTP_REFERER'])->withCookie($cookie);
+
+        $user_info = DB::table('bs_nguoi_dung')
+        ->select('id', 'tai_khoan', 'ho_ten', 'id_loai_user', 'avatar')
+        ->where('tai_khoan', $ten_dang_nhap)
+        ->where('mat_khau', md5($mat_khau))
+        ->first();
+        //echo '<pre>',print_r($user_info),'</pre>';
+
+
+        if($user_info){
+            //echo 'test 123';
+            
+
+            // $user_test = Session::get('user_info');
+            // echo '<pre>',print_r($user_test),'</pre>';
+            //$cookie = Cookie::make('user_info', json_encode($user_info), 24 * 60);
+            // return redirect($_SERVER['HTTP_REFERER'])->withCookie($cookie);
+
+            if($admin_login){
+                if($user_info->id_loai_user >= 5){
+                    Session::put('user_info', $user_info);
+                    return redirect('/admin');
+                }
+                else{
+                    return redirect($_SERVER['HTTP_REFERER'])->with('login_error', 'Bạn không có quyền truy cập vào các trang này');
+                }
+            }
+            else {
+                Session::put('user_info', $user_info);
+                return redirect($_SERVER['HTTP_REFERER']);
+            }
         }
         else {
             return redirect($_SERVER['HTTP_REFERER'])->with('login_error', 'Tài khoản hoặc mật khẩu không đúng');
@@ -30,8 +57,9 @@ class UserController extends Controller
 
     public function logout(){
         Session::forget('user_info');
-        $cookie = Cookie::make('user_info', '', 0);
-        return redirect($_SERVER['HTTP_REFERER'])->withCookie($cookie);
+        //$cookie = Cookie::make('user_info', '', 0);
+        //return redirect($_SERVER['HTTP_REFERER'])->withCookie($cookie);
+        return redirect($_SERVER['HTTP_REFERER']);
     }
 
     public function create(){
@@ -60,9 +88,10 @@ class UserController extends Controller
             ]);
 
             $user_info = ['ten_dang_nhap' => $tai_khoan, 'ho_ten' => $ho_ten];
-            //Session::put('user_info', $user_info);
-            $cookie = Cookie::make('user_info', json_encode($user_info), 24 * 60);
-            return redirect('/')->withCookie($cookie);
+            Session::put('user_info', $user_info);
+            //$cookie = Cookie::make('user_info', json_encode($user_info), 24 * 60);
+            //return redirect('/')->withCookie($cookie);
+            return redirect('/');
         }
         else {
             return redirect($_SERVER['HTTP_REFERER']);

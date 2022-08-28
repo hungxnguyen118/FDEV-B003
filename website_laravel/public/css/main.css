@@ -439,3 +439,24 @@ footer.footer-content .footer-trust img{
     left: 30px;
 	animation: gio_hang 1s infinite;
 }
+
+
+.include_all {
+	width: 200px;
+	position: fixed;
+	bottom: 0;
+	right: 20px;
+}
+
+.include_all .title_mod_chat {
+	padding: 10px;
+	border-radius: 5px 5px 0 0;
+	background: #fff;
+	border: 1px solid #ccc;
+}
+
+.include_all .form_chat {
+	height: 0px;
+	background: #ccc;
+	transition: ease all 0.5s;
+}

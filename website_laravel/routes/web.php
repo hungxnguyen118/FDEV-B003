@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\EnsureAdminRole;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,3 +90,10 @@ Route::get('/gio-hang', 'App\Http\Controllers\CartController@index');
 Route::get('/thanh-toan', 'App\Http\Controllers\OrderController@index');
 
 Route::post('/thanh-toan', 'App\Http\Controllers\OrderController@store');
+
+
+/* Route for Admin Page */
+
+Route::get('/admin', 'App\Http\Controllers\AdminController@index')->middleware(EnsureAdminRole::class);
+
+Route::get('/admin/login', 'App\Http\Controllers\AdminController@login');

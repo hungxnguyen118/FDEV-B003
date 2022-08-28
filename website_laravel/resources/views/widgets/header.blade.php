@@ -121,11 +121,17 @@
                             <span class="glyphicon glyphicon-shopping-cart"></span>
                         </a>
                     </li>
-                    @if(session('user_info'))
-                        <li class="dropdown-submenu">
-                            <a href="#"><span class="glyphicon glyphicon-user"></span>{{session('user_info')['ho_ten']}}</a>
+                    <li>
+                        {{-- {{session('user_info')->ho_ten}} --}}
+                    </li>
+                    @if(session()->has('user_info'))
+                        <li class="dropdown">
+                            <a href="#"  data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"></span>{{session('user_info')->ho_ten}}</a>
                             <ul class="dropdown-menu hidden-xs hidden-sm">
-                                <li><a href="/logout">Đăng xuất</a></li>
+                                @if(session('user_info')->id_loai_user >= 5)
+                                <li class=""><a href="/admin">Quản lý admin</a></li>
+                                @endif
+                                <li class=""><a href="/logout">Đăng xuất</a></li>
                             </ul>
                         </li>
                     @else
