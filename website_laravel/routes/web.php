@@ -97,3 +97,8 @@ Route::post('/thanh-toan', 'App\Http\Controllers\OrderController@store');
 Route::get('/admin', 'App\Http\Controllers\AdminController@index')->middleware(EnsureAdminRole::class);
 
 Route::get('/admin/login', 'App\Http\Controllers\AdminController@login');
+
+/* Route QL Sách */
+Route::get('/admin/ql-sach/', 'App\Http\Controllers\SachAdminController@index')->middleware(EnsureAdminRole::class);
+
+Route::get('/admin/ql-sach/pagination/{page}', 'App\Http\Controllers\SachAdminController@load_per_page');

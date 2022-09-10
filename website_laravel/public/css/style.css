@@ -4938,3 +4938,8 @@ span.customSelect.changed {
 .customSelectInner {
     background:url(../img/customSelect-arrow.gif) no-repeat center right;
 }
+
+
+.image_sach {
+    width: 50px;
+}

@@ -4,12 +4,23 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu">                
             <li class="active">
-                <a class="" href="index.html">
+                <a class="" href="/admin/">
                     <i class="icon_house_alt"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
             <li class="sub-menu">
+                <a href="javascript:;" class="">
+                    <i class="icon_document_alt"></i>
+                    <span>QL Sách</span>
+                    <span class="menu-arrow arrow_carrot-right"></span>
+                </a>
+                <ul class="sub">
+                    <li><a class="" href="/admin/ql-sach/">DS Sách</a></li>                          
+                    <li><a class="" href="/admin/ql-sach/create">Thêm Sách Mới</a></li>
+                </ul>
+            </li> 
+            {{-- <li class="sub-menu">
                 <a href="javascript:;" class="">
                     <i class="icon_document_alt"></i>
                     <span>Forms</span>
@@ -70,7 +81,7 @@
                     <li><a class="" href="blank.html">Blank Page</a></li>
                     <li><a class="" href="404.html">404 Error</a></li>
                 </ul>
-            </li>
+            </li> --}}
             
         </ul>
         <!-- sidebar menu end-->
