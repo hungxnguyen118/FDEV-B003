@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\EnsureAdminRole;
+use App\Http\Middleware\RuleSaveBook;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,3 +103,9 @@ Route::get('/admin/login', 'App\Http\Controllers\AdminController@login');
 Route::get('/admin/ql-sach/', 'App\Http\Controllers\SachAdminController@index')->middleware(EnsureAdminRole::class);
 
 Route::get('/admin/ql-sach/pagination/{page}', 'App\Http\Controllers\SachAdminController@load_per_page');
+
+Route::get('/admin/ql-sach/create', 'App\Http\Controllers\SachAdminController@create')->middleware(EnsureAdminRole::class);
+Route::post('/admin/ql-sach/create', 'App\Http\Controllers\SachAdminController@store')->middleware([EnsureAdminRole::class, RuleSaveBook::class]);
+
+Route::get('/admin/ql-sach/edit/{id}', 'App\Http\Controllers\SachAdminController@edit')->middleware(EnsureAdminRole::class);
+Route::post('/admin/ql-sach/edit/{id}', 'App\Http\Controllers\SachAdminController@update')->middleware([EnsureAdminRole::class, RuleSaveBook::class]);

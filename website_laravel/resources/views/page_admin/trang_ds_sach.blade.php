@@ -2,6 +2,12 @@
 
 @section('main-content')
     <!--overview start-->
+
+    @if(session('NoticeSuccess'))
+        <script>
+            alert('{{ session('NoticeSuccess') }}');
+        </script>
+    @endif
     
     <div class="row">
         <div class="col-lg-12">
@@ -38,7 +44,7 @@
                         </tr>
                     </thead>
                     <tbody class="data_ds_sach">
-                        @foreach($ds_sach as $sach)
+                        {{-- @foreach($ds_sach as $sach)
                         <tr>
                             <td>{{$sach->id}}</td>
                             <td>{{$sach->ten_sach}}</td>
@@ -53,7 +59,7 @@
                                 </div>
                             </td>
                         </tr>
-                        @endforeach
+                        @endforeach --}}
                     </tbody>
                 </table>
 
@@ -107,9 +113,8 @@
                                             <td>${data[i].gia_bia}</td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a class="btn btn-primary" href="#"><i class="icon_plus_alt2"></i></a>
-                                                    <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>
-                                                    <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
+                                                    <a class="btn btn-success" href="/admin/ql-sach/edit/${data[i].id}"><i class="icon_pencil-edit_alt"></i></a>
+                                                    <a class="btn btn-danger" href="/admin/ql-sach/delete/${data[i].id}"><i class="icon_trash_alt"></i></a>
                                                 </div>
                                             </td>
                                         </tr>`;
@@ -127,7 +132,9 @@
                         // console.log($(e.target).attr('data-load-page'));
                         //console.log($(e.target).attr('data-load-page'));
                         process_load_page($(e.target).attr('data-load-page'));
-                    })
+                    });
+
+                    process_load_page(0);
                 })
             </script>
         </div>
