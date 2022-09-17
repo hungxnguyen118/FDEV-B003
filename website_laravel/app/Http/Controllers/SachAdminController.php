@@ -27,16 +27,49 @@ class SachAdminController extends Controller
 
         $so_trang = 0;
 
-        $result = DB::table('bs_sach')->select(DB::raw('COUNT(*) as tong_so_sach'))->first();
+        $result = DB::table('bs_sach')
+        ->select(DB::raw('COUNT(*) as tong_so_sach'))
+        ->where('trang_thai', '!=', '-1')
+        ->first();
 
         $so_trang = ceil($result->tong_so_sach / $number_on_trang);
 
         $ds_sach = DB::table('bs_sach')
             ->orderBy('id', 'DESC')
+            ->where('trang_thai', '!=', '-1')
             ->skip($cur_page * $number_on_trang)
             ->limit($number_on_trang)->get();
 
         return view('page_admin.trang_ds_sach')
+            ->with('ds_sach', $ds_sach)
+            ->with('so_trang', $so_trang)
+            ->with('cur_page', $cur_page);
+    }
+
+    function index_trash(){
+        $cur_page = 0;
+        if(isset($_GET['page'])){
+            $cur_page = $_GET['page'];
+        }
+
+        $number_on_trang = 10;
+
+        $so_trang = 0;
+
+        $result = DB::table('bs_sach')
+        ->select(DB::raw('COUNT(*) as tong_so_sach'))
+        ->where('trang_thai', '=', '-1')
+        ->first();
+
+        $so_trang = ceil($result->tong_so_sach / $number_on_trang);
+
+        $ds_sach = DB::table('bs_sach')
+            ->orderBy('id', 'DESC')
+            ->where('trang_thai', '=', '-1')
+            ->skip($cur_page * $number_on_trang)
+            ->limit($number_on_trang)->get();
+
+        return view('page_admin.trang_ds_sach_trong_thung_rac')
             ->with('ds_sach', $ds_sach)
             ->with('so_trang', $so_trang)
             ->with('cur_page', $cur_page);
@@ -223,6 +256,37 @@ class SachAdminController extends Controller
     public function destroy($id)
     {
         //
+        //echo $id;
+        //DB::delete
+        $trang_thai = -1;
+
+        DB::table('bs_sach')
+        ->where('id', $id)
+        ->update([
+            'trang_thai' => $trang_thai
+        ]);
+
+        return redirect('/admin/ql-sach/')->with('NoticeSuccess', 'Đã đưa Sách vào thùng rác thành công');
+    }
+
+    public function delete($id){
+        DB::table('bs_sach')
+        ->where('id', $id)
+        ->delete();
+
+        return redirect('/admin/ql-sach/thung-rac')->with('NoticeSuccess', 'Đã xóa hẳn sách khỏi database');
+    }
+
+    public function refresh($id){
+        $trang_thai = 0;
+
+        DB::table('bs_sach')
+        ->where('id', $id)
+        ->update([
+            'trang_thai' => $trang_thai
+        ]);
+
+        return redirect('/admin/ql-sach/thung-rac')->with('NoticeSuccess', 'Sách đã được khôi phục');
     }
 
     public function load_per_page($page){
@@ -230,6 +294,19 @@ class SachAdminController extends Controller
         $number_on_trang = 10;
         
         $ds_sach = DB::table('bs_sach')
+            ->where('trang_thai', '!=', '-1')
+            ->orderBy('id', 'DESC')
+            ->skip($page * $number_on_trang)
+            ->limit($number_on_trang)->get();
+
+        return response()->json($ds_sach);
+    }
+
+    public function load_per_page_thung_rac($page){
+        $number_on_trang = 10;
+        
+        $ds_sach = DB::table('bs_sach')
+            ->where('trang_thai', '=', '-1')
             ->orderBy('id', 'DESC')
             ->skip($page * $number_on_trang)
             ->limit($number_on_trang)->get();

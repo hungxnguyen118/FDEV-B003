@@ -23,9 +23,9 @@
         <div class="col-sm-6">
             <section class="panel">
                 <header class="panel-heading">
-                    <a>Trang Danh sách Sách</a>
+                    <a href="/admin/ql-sach">Trang Danh sách Sách</a>
                     /
-                    <a href="/admin/ql-sach/thung-rac">
+                    <a>
                         Danh sách trong thùng rác
                     </a>
                 </header>
@@ -100,7 +100,7 @@
                     function process_load_page(page_load){
                         console.log(page_load);
 
-                        $.get('/admin/ql-sach/pagination/' + page_load)
+                        $.get('/admin/ql-sach/thung-rac/pagination/' + page_load)
                             .then((data) => {
 
                                 //console.log(data);
@@ -117,8 +117,8 @@
                                             <td>${data[i].gia_bia}</td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a class="btn btn-success" href="/admin/ql-sach/edit/${data[i].id}"><i class="icon_pencil-edit_alt"></i></a>
-                                                    <a class="btn btn-danger" onclick="return confirm_delete();" href="/admin/ql-sach/delete/${data[i].id}"><i class="icon_trash_alt"></i></a>
+                                                    <a class="btn btn-success" href="/admin/ql-sach/thung-rac/refresh/${data[i].id}"><i class="icon_refresh"></i> Phục hồi</a>
+                                                    <a class="btn btn-danger" onclick="return confirm_delete();" href="/admin/ql-sach/thung-rac/delete/${data[i].id}"><i class="icon_trash_alt"></i> Xóa hẳn</a>
                                                 </div>
                                             </td>
                                         </tr>`;
