@@ -20,6 +20,14 @@
     </div>
     
     <div class="container_list_chart">
+        <div class="select_year">
+            <select name="" id="select_year" onchange="process_change_data_chart(event)">
+                @for($i = 2016; $i <= 2022; $i++)
+                <option value="{{$i}}">{{$i}}</option>
+                @endfor
+            </select>
+        </div>
+
         <figure class="highcharts-figure">
             <div id="container_chart"></div>
             <p class="highcharts-description">
@@ -48,56 +56,65 @@
         <script>
             // Set up the chart
             const chart = new Highcharts.Chart({
-            chart: {
-                renderTo: 'container_chart',
-                type: 'column',
-                options3d: {
-                enabled: true,
-                alpha: 15,
-                beta: 15,
-                depth: 50,
-                viewDistance: 25
-                }
-            },
-            xAxis: {
-                categories: ['Toyota', 'BMW', 'Volvo', 'Audi', 'Peugeot', 'Mercedes-Benz',
-                'Volkswagen', 'Polestar', 'Kia', 'Nissan']
-            },
-            yAxis: {
+                chart: {
+                    renderTo: 'container_chart',
+                    type: 'column',
+                    options3d: {
+                    enabled: true,
+                    alpha: 15,
+                    beta: 15,
+                    depth: 50,
+                    viewDistance: 25
+                    }
+                },
+                xAxis: {
+                    categories: ['01', '02','03','04','05','06','07','08','09','10','11','12']
+                },
+                yAxis: {
+                    title: {
+                    enabled: false
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<b>{point.key}</b><br>',
+                    pointFormat: 'Cars sold: {point.y}'
+                },
                 title: {
-                enabled: false
-                }
-            },
-            tooltip: {
-                headerFormat: '<b>{point.key}</b><br>',
-                pointFormat: 'Cars sold: {point.y}'
-            },
-            title: {
-                text: 'Sold passenger cars in Norway by brand, January 2021'
-            },
-            subtitle: {
-                text: 'Source: ' +
-                '<a href="https://ofv.no/registreringsstatistikk"' +
-                'target="_blank">OFV</a>'
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                column: {
-                depth: 25
-                }
-            },
-            series: [{
-                data: [1318, 1073, 1060, 813, 775, 745, 537, 444, 416, 395],
-                colorByPoint: true
-            }]
+                    text: 'Sold passenger cars in Norway by brand, January 2021'
+                },
+                subtitle: {
+                    text: 'Source: ' +
+                    '<a href="https://ofv.no/registreringsstatistikk"' +
+                    'target="_blank">OFV</a>'
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    column: {
+                    depth: 25
+                    }
+                },
+                series: [{
+                    data: {{$string_array}},
+                    colorByPoint: true
+                }]
             });
 
+            function process_change_data_chart(e){
+                //console.log(e.target.value);
+                $.get('/admin/api-chart/' + e.target.value)
+                    .then((result) => {
+                        if(result.length){
+                            chart.series[0].setData(result);
+                        }
+                    })
+            }
+
             function showValues() {
-            document.getElementById('alpha-value').innerHTML = chart.options.chart.options3d.alpha;
-            document.getElementById('beta-value').innerHTML = chart.options.chart.options3d.beta;
-            document.getElementById('depth-value').innerHTML = chart.options.chart.options3d.depth;
+                document.getElementById('alpha-value').innerHTML = chart.options.chart.options3d.alpha;
+                document.getElementById('beta-value').innerHTML = chart.options.chart.options3d.beta;
+                document.getElementById('depth-value').innerHTML = chart.options.chart.options3d.depth;
             }
 
             // Activate the sliders

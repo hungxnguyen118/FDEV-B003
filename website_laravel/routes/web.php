@@ -114,4 +114,8 @@ Route::post('/admin/ql-sach/edit/{id}', 'App\Http\Controllers\SachAdminControlle
 Route::get('/admin/ql-sach/delete/{id}', 'App\Http\Controllers\SachAdminController@destroy')->middleware([EnsureAdminRole::class]);
 Route::get('/admin/ql-sach/thung-rac', 'App\Http\Controllers\SachAdminController@index_trash')->middleware([EnsureAdminRole::class]);
 Route::get('/admin/ql-sach/thung-rac/delete/{id}', 'App\Http\Controllers\SachAdminController@delete')->middleware([EnsureAdminRole::class]);
-Route::get('/admin/ql-sach/thung-rac/refresh/{id}', 'App\Http\Controllers\SachAdminController@refresh')->middleware([EnsureAdminRole::class]);
+Route::get('/admin/ql-sach/thung-rac/refresh{id}', 'App\Http\Controllers\SachAdminController@refresh')->middleware([EnsureAdminRole::class]);
+
+/* generate data */
+Route::get('/admin/generate-data', 'App\Http\Controllers\DonHangController@generate');
+Route::get('/admin/api-chart/{year}', 'App\Http\Controllers\DonHangController@analytics_chart');
