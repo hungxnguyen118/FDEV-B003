@@ -12,9 +12,48 @@ class DonHangController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function review($email){
+        //echo $email;
+
+        $ds_don_hang = DB::table('bs_don_hang')
+        ->where('email_nguoi_nhan', $email)
+        ->limit(10)
+        ->get();
+
+        foreach($ds_don_hang as $don_hang){
+            $ds_sp = DB::table('bs_chi_tiet_don_hang')
+            ->join('bs_sach', 'bs_chi_tiet_don_hang.id_sach', '=', 'bs_sach.id')
+            ->where('id_don_hang', $don_hang->id)
+            ->get();
+
+            $don_hang->ds_sp = $ds_sp;
+        }
+
+        //echo '<pre>',print_r($ds_don_hang),'</pre>';
+        return view('trang_ds_don_hang')->with('ds_don_hang', $ds_don_hang);
+    }
+
+    public function index($email, $page)
     {
         //
+        $item_on_page = 10;
+
+        $ds_don_hang = DB::table('bs_don_hang')
+        ->where('email_nguoi_nhan', $email)
+        ->skip((Int) $page * $item_on_page)
+        ->limit($item_on_page)
+        ->get();
+
+        foreach($ds_don_hang as $don_hang){
+            $ds_sp = DB::table('bs_chi_tiet_don_hang')
+            ->join('bs_sach', 'bs_chi_tiet_don_hang.id_sach', '=', 'bs_sach.id')
+            ->where('id_don_hang', $don_hang->id)
+            ->get();
+
+            $don_hang->ds_sp = $ds_sp;
+        }
+
+        return response()->json($ds_don_hang, 200);
     }
 
     /**

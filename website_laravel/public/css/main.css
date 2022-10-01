@@ -460,3 +460,34 @@ footer.footer-content .footer-trust img{
 	background: #ccc;
 	transition: ease all 0.5s;
 }
+
+.container_ds_don_hang .item_don_hang {
+    margin: 24px 0;
+    padding: 12px;
+    border: 1px solid #ccc;
+    box-shadow: 5px 10px 10px #ccc;
+    border-radius: 10px;
+}
+
+.container_ds_don_hang .item_sp {
+    display: flex;
+    margin: 12px 0 12px 0;
+    padding: 12px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.container_ds_don_hang .title_item_don_hang {
+    font-weight: 600;
+}
+
+.container_ds_don_hang .tong_tien {
+	display: flex;
+}
+
+.container_ds_don_hang .hinh_sp img {
+    max-width: 100px;
+}
+
+.detect_load_more {
+	height: 1px;
+}

@@ -92,6 +92,12 @@ Route::get('/thanh-toan', 'App\Http\Controllers\OrderController@index');
 
 Route::post('/thanh-toan', 'App\Http\Controllers\OrderController@store');
 
+Route::get('/don-hang/{email}', 'App\Http\Controllers\DonHangController@review');
+
+Route::get('/don-hang/id/{id}', 'App\Http\Controllers\DonHangController@show');
+
+Route::get('/api/don-hang/{email}/{page}', 'App\Http\Controllers\DonHangController@index');
+
 
 /* Route for Admin Page */
 
