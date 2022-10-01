@@ -489,5 +489,24 @@ footer.footer-content .footer-trust img{
 }
 
 .detect_load_more {
-	height: 1px;
+	min-height: 1px;
+}
+
+.loading {
+	width: 50px;
+	margin: auto;
+	animation: loading_rolling linear 1s infinite;
+}
+
+.loading img {
+	width: 100%;
+}
+
+@keyframes loading_rolling {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }

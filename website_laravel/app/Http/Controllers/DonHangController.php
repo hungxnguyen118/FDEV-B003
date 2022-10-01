@@ -17,6 +17,7 @@ class DonHangController extends Controller
 
         $ds_don_hang = DB::table('bs_don_hang')
         ->where('email_nguoi_nhan', $email)
+        ->orderBy('id', 'DESC')
         ->limit(10)
         ->get();
 
@@ -42,6 +43,7 @@ class DonHangController extends Controller
         ->where('email_nguoi_nhan', $email)
         ->skip((Int) $page * $item_on_page)
         ->limit($item_on_page)
+        ->orderBy('id', 'DESC')
         ->get();
 
         foreach($ds_don_hang as $don_hang){

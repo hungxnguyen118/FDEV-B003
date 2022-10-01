@@ -40,7 +40,11 @@
             </div>
             @endforeach
         </div>
-        <div class="detect_load_more" page='1'></div>
+        <div class="detect_load_more" page='1'>
+            <div class="loading" style="display: none;">
+                <img src="/images/loading.png" alt="">
+            </div>
+        </div>
     </div>
 </div>
 <script>
@@ -49,15 +53,18 @@
         var screenheight = screen.height;
         $( window ).scroll(function() {
             //console.log($(window).scrollTop(), $('.detect_load_more').offset().top, screenheight * 2 / 3);
-            if($(window).scrollTop() + (screenheight * 2 / 3) >= $('.detect_load_more').offset().top){
+            if($(window).scrollTop() + (screenheight * 3 / 4) >= $('.detect_load_more').offset().top){
                 if(flag_run == 0){
                     console.log('load new page');
                     flag_run = 1;
+                    $('.loading').css({display: 'block'});
                     // setTimeout(() => {
                     //     flag_run = 0;
                     // }, 2000);
 
-                    $.get('/api/don-hang/hungnguyenxuan118@gmail.com/2')
+                    var cur_page = $('.detect_load_more').attr('page');
+
+                    $.get('/api/don-hang/hungnguyenxuan118@gmail.com/' + (cur_page * 1 + 1))
                         .then((data) => {
 
                             console.log(data);
@@ -110,7 +117,9 @@
                                 `
                             }
                             
+                            $('.detect_load_more').attr('page', cur_page * 1 + 1);
                             $('.list_ds_don_hang').append(html);
+                            $('.loading').css({display: 'none'});
                             flag_run = 0;
                         })
                 }
