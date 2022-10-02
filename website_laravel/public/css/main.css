@@ -510,3 +510,32 @@ footer.footer-content .footer-trust img{
 		transform: rotate(360deg);
 	}
 }
+
+
+
+.container_thong_tin_don_hang .item_don_hang {
+    margin: 24px 0;
+    padding: 12px;
+    border: 1px solid #ccc;
+    box-shadow: 5px 10px 10px #ccc;
+    border-radius: 10px;
+}
+
+.container_thong_tin_don_hang .item_sp {
+    display: flex;
+    margin: 12px 0 12px 0;
+    padding: 12px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.container_thong_tin_don_hang .title_item_don_hang {
+    font-weight: 600;
+}
+
+.container_thong_tin_don_hang .tong_tien {
+	display: flex;
+}
+
+.container_thong_tin_don_hang .hinh_sp img {
+    max-width: 100px;
+}

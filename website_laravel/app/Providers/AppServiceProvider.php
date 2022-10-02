@@ -48,6 +48,16 @@ class AppServiceProvider extends ServiceProvider
         //echo '<pre>',print_r($ds_loai_sach_cap_1),'</pre>';
         View::share('ds_loai_sach', $ds_loai_sach_cap_1);
 
+        $status_don_hang = array(
+            '0' => 'Đã Hủy',
+            '1' => 'Đã Giao Thành Công',
+            '2' => 'Đang chờ xác nhận',
+            '3' => 'Đã xác nhận',
+            '4' => 'Đang giao',
+            '5' => 'Đã xóa'
+        );
+        View::share('status_don_hang', $status_don_hang);
+
 
         Blade::directive('convert_money', function ($money) {
             return "<?php echo number_format($money, 0, '', '.'); ?>";

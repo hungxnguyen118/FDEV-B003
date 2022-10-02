@@ -20,6 +20,13 @@
                     <li><a class="" href="/admin/ql-sach/create">Thêm Sách Mới</a></li>
                 </ul>
             </li> 
+            <li class="sub-menu">
+                <a href="/admin/ql-don-hang/" class="">
+                    <i class="icon_document_alt"></i>
+                    <span>QL Đơn Hàng</span>
+                    <span class="menu-arrow arrow_carrot-right"></span>
+                </a>
+            </li> 
             {{-- <li class="sub-menu">
                 <a href="javascript:;" class="">
                     <i class="icon_document_alt"></i>

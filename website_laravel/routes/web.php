@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\EnsureAdminRole;
 use App\Http\Middleware\RuleSaveBook;
+use App\Http\Middleware\UserRuleChecked;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,9 +95,11 @@ Route::post('/thanh-toan', 'App\Http\Controllers\OrderController@store');
 
 Route::get('/don-hang/{email}', 'App\Http\Controllers\DonHangController@review');
 
-Route::get('/don-hang/id/{id}', 'App\Http\Controllers\DonHangController@show');
+Route::get('/don-hang/id/{id}', 'App\Http\Controllers\DonHangController@show')->middleware([UserRuleChecked::class]);
 
 Route::get('/api/don-hang/{email}/{page}', 'App\Http\Controllers\DonHangController@index');
+
+Route::post('/api/don-hang/trang-thai/{id}', 'App\Http\Controllers\DonHangController@update_trang_thai');
 
 
 /* Route for Admin Page */
@@ -121,6 +124,10 @@ Route::get('/admin/ql-sach/delete/{id}', 'App\Http\Controllers\SachAdminControll
 Route::get('/admin/ql-sach/thung-rac', 'App\Http\Controllers\SachAdminController@index_trash')->middleware([EnsureAdminRole::class]);
 Route::get('/admin/ql-sach/thung-rac/delete/{id}', 'App\Http\Controllers\SachAdminController@delete')->middleware([EnsureAdminRole::class]);
 Route::get('/admin/ql-sach/thung-rac/refresh{id}', 'App\Http\Controllers\SachAdminController@refresh')->middleware([EnsureAdminRole::class]);
+
+Route::get('/admin/ql-don-hang', 'App\Http\Controllers\DonHangAdminController@index')->middleware([EnsureAdminRole::class]);
+Route::get('/admin/ql-don-hang/pagination/{page}', 'App\Http\Controllers\DonHangAdminController@load_per_page');
+
 
 /* generate data */
 Route::get('/admin/generate-data', 'App\Http\Controllers\DonHangController@generate');

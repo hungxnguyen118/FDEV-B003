@@ -31,7 +31,7 @@ class DonHangController extends Controller
         }
 
         //echo '<pre>',print_r($ds_don_hang),'</pre>';
-        return view('trang_ds_don_hang')->with('ds_don_hang', $ds_don_hang);
+        return view('trang_ds_don_hang')->with('ds_don_hang', $ds_don_hang)->with('email_don_hang', $email);
     }
 
     public function index($email, $page)
@@ -55,7 +55,13 @@ class DonHangController extends Controller
             $don_hang->ds_sp = $ds_sp;
         }
 
-        return response()->json($ds_don_hang, 200);
+        if(count($ds_don_hang)){
+            return response()->json($ds_don_hang, 200);
+        }
+        else {
+            return response()->json('stop', 200);
+        }
+        
     }
 
     /**
@@ -88,6 +94,19 @@ class DonHangController extends Controller
     public function show($id)
     {
         //
+        $thong_tin_don_hang = DB::table('bs_don_hang')
+        ->where('id', $id)
+        ->first();
+
+        $ds_sp = DB::table('bs_chi_tiet_don_hang')
+        ->join('bs_sach', 'bs_chi_tiet_don_hang.id_sach', '=', 'bs_sach.id')
+        ->where('id_don_hang', $thong_tin_don_hang->id)
+        ->get();
+
+        $thong_tin_don_hang->ds_sp = $ds_sp;
+
+        //echo '<pre>',print_r($thong_tin_don_hang),'</pre>';
+        return view('trang_chi_tiet_don_hang')->with('thong_tin_don_hang', $thong_tin_don_hang);
     }
 
     /**
@@ -237,5 +256,16 @@ class DonHangController extends Controller
         }
         
         return response()->json($array_thong_ke, 200);
+    }
+
+    function update_trang_thai(Request $request, $id){
+        //echo $id . ' - ' . $request->get('trang_thai');
+        DB::table('bs_don_hang')
+        ->where('id', $id)
+        ->update([
+            'trang_thai' => $request->get('trang_thai')
+        ]);
+
+        return response()->json(['message' => 'done'], 200);
     }
 }

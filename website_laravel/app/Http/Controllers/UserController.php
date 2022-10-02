@@ -19,7 +19,7 @@ class UserController extends Controller
         //echo $ten_dang_nhap . ' - ' . $mat_khau;
 
         $user_info = DB::table('bs_nguoi_dung')
-        ->select('id', 'tai_khoan', 'ho_ten', 'id_loai_user', 'avatar')
+        ->select('id', 'tai_khoan', 'ho_ten', 'id_loai_user', 'avatar', 'email')
         ->where('tai_khoan', $ten_dang_nhap)
         ->where('mat_khau', md5($mat_khau))
         ->first();
