@@ -131,6 +131,7 @@
                                 @if(session('user_info')->id_loai_user >= 5)
                                 <li class=""><a href="/admin">Quản lý admin</a></li>
                                 @endif
+                                <li><a href="/don-hang/{{session('user_info')->email}}">Đơn hàng của bạn</a></li>
                                 <li class=""><a href="/logout">Đăng xuất</a></li>
                             </ul>
                         </li>

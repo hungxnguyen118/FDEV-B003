@@ -12,7 +12,7 @@
                     <div class="chi_tiet_hinh">
                         <img src="images/sach/{{$thong_tin_sach->hinh}} " alt="" title="">
                     </div>
-                    @if($thong_tin_sach->doc_thu)
+                    @if($doc_thu)
                     <div class="doc_thu_sach" data-toggle="modal" href="#modal-id">Đọc thử</div>
                     @endif
                 </div>
@@ -34,8 +34,8 @@
                         <input type="submit" class="btn_dat_mua" value="Thêm vào giỏ hàng">
                     </div>
 
-                    {{-- <!-- facebook like share -->
-                    <div class="fb-like fb_iframe_widget"
+                    <!-- facebook like share -->
+                    {{-- <div class="fb-like fb_iframe_widget"
                         data-href="http://locahost:81/web_ban_sach_php_thuan/chi_tiet_sach.php" data-layout="standard"
                         data-action="like" data-show-faces="true" data-share="true" fb-xfbml-state="rendered"
                         fb-iframe-plugin-query="action=like&amp;app_id=&amp;container_width=1219&amp;href=http%3A%2F%2Flocahost%3A81%2Fweb_ban_sach_php_thuan%2Fchi_tiet_sach.php&amp;layout=standard&amp;locale=en_US&amp;sdk=joey&amp;share=true&amp;show_faces=true">
@@ -57,9 +57,18 @@
                             js = d.createElement(s); js.id = id;
                             js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
                             fjs.parentNode.insertBefore(js, fjs);
-                        }(document, 'script', 'facebook-jssdk'));</script>
-                    <!-- END facebook like share --> --}}
+                        }(document, 'script', 'facebook-jssdk'));</script> --}}
+                    <!-- END facebook like share -->
 
+
+                    <div id="fb-root"></div>
+                    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v15.0" nonce="kG29eYGe"></script>
+
+                    <div class="fb-share-button" data-href="{{$url_share}}" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php" class="fb-xfbml-parse-ignore">Share</a></div>
+
+                    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw&text=Sách '{{$thong_tin_sach->ten_sach}}' hay lắm nè" class="twitter-share-button" data-show-count="false" data-size="large">Tweet</a>
+                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                
                     <div class="cac_thong_tin_khac">
                         <table class="table table-hover">
                             <tbody>
@@ -101,16 +110,16 @@
         {!!$thong_tin_sach->gioi_thieu!!} 
     </div>
 
-    {{-- <!-- facebook comment -->
-    <div class="fb-comments fb_iframe_widget fb_iframe_widget_fluid_desktop"
-        data-href="http://localhost/web_ban_sach_php_thuan/chi_tiet_sach.php?id_sach=20" data-numposts="5"
+    <!-- facebook comment -->
+    {{-- <div class="fb-comments fb_iframe_widget fb_iframe_widget_fluid_desktop"
+        data-href="http://localhost:8000/{{$url_share}}" data-numposts="5"
         fb-xfbml-state="rendered"
         fb-iframe-plugin-query="app_id=&amp;container_width=1873&amp;height=100&amp;href=http%3A%2F%2Flocalhost%2Fweb_ban_sach_php_thuan%2Fchi_tiet_sach.php%3Fid_sach%3D20&amp;locale=en_US&amp;numposts=5&amp;sdk=joey&amp;version=v2.5&amp;width=550">
         <span style="vertical-align: bottom; width: 550px; height: 204px;"><iframe name="f1751d65915d10c" width="550px"
                 height="100px" data-testid="fb:comments Facebook Social Plugin"
                 title="fb:comments Facebook Social Plugin" frameborder="0" allowtransparency="true"
                 allowfullscreen="true" scrolling="no" allow="encrypted-media"
-                src="https://www.facebook.com/v2.5/plugins/comments.php?app_id=&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df270886db5ea63c%26domain%3Dlocalhost%26is_canvas%3Dfalse%26origin%3Dhttp%253A%252F%252Flocalhost%252Ff3a134a7f218c54%26relation%3Dparent.parent&amp;container_width=1873&amp;height=100&amp;href=http%3A%2F%2Flocalhost%2Fweb_ban_sach_php_thuan%2Fchi_tiet_sach.php%3Fid_sach%3D20&amp;locale=en_US&amp;numposts=5&amp;sdk=joey&amp;version=v2.5&amp;width=550"
+                src="https://www.facebook.com/v2.5/plugins/comments.php?app_id=&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df270886db5ea63c%26domain%3Dlocalhost%26is_canvas%3Dfalse%26origin%3Dhttp%253A%252F%252Flocalhost:8000%252Ff3a134a7f218c54%26relation%3Dparent.parent&amp;container_width=1873&amp;height=100&amp;href=http://localhost:8000/{{$url_share}}&amp;locale=en_US&amp;numposts=5&amp;sdk=joey&amp;version=v2.5&amp;width=550"
                 style="border: none; visibility: visible; width: 550px; height: 204px;" class=""></iframe></span></div>
     <div id="fb-root"></div>
     <script>(function (d, s, id) {
@@ -119,8 +128,11 @@
             js = d.createElement(s); js.id = id;
             js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
             fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
-    <!-- END facebook comment --> --}}
+        }(document, 'script', 'facebook-jssdk'));</script> --}}
+    <!-- END facebook comment -->
+
+    
+    <div class="fb-comments" data-href="{{$url_share}}" data-width="500" data-numposts="5"></div>
 
 </section>
 

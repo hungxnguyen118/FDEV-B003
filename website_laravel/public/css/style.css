@@ -4943,3 +4943,11 @@ span.customSelect.changed {
 .image_sach {
     width: 50px;
 }
+
+.etc_last, .etc_first {
+    display: none!important;
+}
+
+.etc_last.active, .etc_first.active {
+    display: inline!important;
+}

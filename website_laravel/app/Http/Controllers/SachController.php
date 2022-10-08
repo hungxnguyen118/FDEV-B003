@@ -75,16 +75,26 @@ class SachController extends Controller
 
         //echo $thong_tin_sach->doc_thu;
         if($thong_tin_sach->doc_thu){
-            $doc_thu_html = file_get_contents(public_path() . '/' . $thong_tin_sach->doc_thu);
+            if(file_exists(public_path() . '/' . $thong_tin_sach->doc_thu))
+            {
+                $doc_thu_html = file_get_contents(public_path() . '/' . $thong_tin_sach->doc_thu);
+            }
+            else{
+                $doc_thu_html = '';
+            }
         }
         else {
             $doc_thu_html = '';
         }
         //echo $doc_thu_html;
 
+        //echo '<pre>',print_r($_SERVER['REQUEST_URI']),'</pre>';
+        $url_share = $_SERVER['REQUEST_URI'];
+
         return view('trang_chi_tiet_sach')
         ->with('thong_tin_sach', $thong_tin_sach)
-        ->with('doc_thu', $doc_thu_html);
+        ->with('doc_thu', $doc_thu_html)
+        ->with('url_share', $url_share);
         //return '123';
     }
 
