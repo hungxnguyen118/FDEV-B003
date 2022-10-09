@@ -75,6 +75,9 @@ Route::post('/dang-ky', [
     'uses' => 'App\Http\Controllers\UserController@store'
 ]);
 
+Route::get('/tai-khoan', 'App\Http\Controllers\UserController@thong_tin_tai_khoan');
+Route::post('/tai-khoan', 'App\Http\Controllers\UserController@update_thong_tin_tai_khoan');
+
 Route::get('/sach-theo-loai/{id_loai_sach}', 'App\Http\Controllers\SachController@sach_theo_loai');
 
 Route::get('/tin-tuc', 'App\Http\Controllers\TinTucController@index');
@@ -100,6 +103,8 @@ Route::get('/don-hang/id/{id}', 'App\Http\Controllers\DonHangController@show')->
 Route::get('/api/don-hang/{email}/{page}', 'App\Http\Controllers\DonHangController@index');
 
 Route::post('/api/don-hang/trang-thai/{id}', 'App\Http\Controllers\DonHangController@update_trang_thai');
+
+Route::get('/api/don-hang/notice', 'App\Http\Controllers\DonHangController@notice' );
 
 
 /* Route for Admin Page */

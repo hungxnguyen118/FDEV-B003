@@ -62,3 +62,27 @@
         </div>
     </div>
 </div>
+
+<script>
+    var status_array = '{!!json_encode($status_don_hang, true)!!}';
+    status_array = JSON.parse(status_array);
+
+    $(() => {
+        setInterval(() => {
+            //console.log('test')
+            $.get('/api/don-hang/notice?id_nguoi_dung={{session('user_info')->id}}&id_don_hang={{$thong_tin_don_hang->id}}')
+                .then((data) => {
+                    //console.log(data);
+                    if(data.length){
+                        var message = '';
+                        for(var i = 0; i < data.length; i++){
+                            message += `Đơn hàng ${data[i].id_don_hang} trạng thái đã thay đổi từ ${status_array[data[i].trang_thai_cu]} sang ${status_array[data[i].trang_thai_moi]} \r\n`
+                        }
+
+                        $('.title_don_hang').html(`Chi tiết đơn hàng #{{$thong_tin_don_hang->id}} - ${status_array[data[data.length - 1].trang_thai_moi]}`);
+                        alert(message);
+                    }
+                })
+        }, 3000);
+    })
+</script>

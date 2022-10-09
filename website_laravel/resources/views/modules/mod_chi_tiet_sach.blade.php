@@ -130,7 +130,7 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script> --}}
     <!-- END facebook comment -->
-
+        
     
     <div class="fb-comments" data-href="{{$url_share}}" data-width="500" data-numposts="5"></div>
 

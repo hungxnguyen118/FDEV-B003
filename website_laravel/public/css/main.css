@@ -539,3 +539,31 @@ footer.footer-content .footer-trust img{
 .container_thong_tin_don_hang .hinh_sp img {
     max-width: 100px;
 }
+
+
+
+.container_thong_tin_ca_nhan .label {
+	color: #000;
+}
+
+.container_thong_tin_ca_nhan .row {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 24px 0;
+}
+
+.container_thong_tin_ca_nhan .include_input {
+	margin: 12px 0;
+}
+
+.container_thong_tin_ca_nhan .image_user {
+	width: 100px;
+	height: 100px;
+	margin: auto;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.container_thong_tin_ca_nhan .image_user img {
+	width: 100%;
+}

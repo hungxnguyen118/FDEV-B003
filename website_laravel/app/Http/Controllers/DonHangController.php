@@ -260,12 +260,50 @@ class DonHangController extends Controller
 
     function update_trang_thai(Request $request, $id){
         //echo $id . ' - ' . $request->get('trang_thai');
-        DB::table('bs_don_hang')
+        $trang_thai_moi = $request->get('trang_thai');
+        $thong_tin_don_hang = DB::table('bs_don_hang')->where('id', $id)->first();
+        $thong_tin_nguoi_dung = DB::table('bs_nguoi_dung')
+            ->where('email', $thong_tin_don_hang->email_nguoi_nhan)
+            ->first();
+        //echo '<pre>',print_r($thong_tin_don_hang),'</pre>';
+        //echo '<pre>',print_r($thong_tin_nguoi_dung),'</pre>';
+        $result = DB::table('bs_don_hang')
         ->where('id', $id)
         ->update([
             'trang_thai' => $request->get('trang_thai')
         ]);
 
+        //echo '<pre>',print_r($result),'</pre>';
+        $cur_date = Date('Y-m-d H:i:s');
+
+        if($thong_tin_nguoi_dung && $result){
+            DB::table('bs_notice_don_hang')->insert([
+                'id_nguoi_dung' => $thong_tin_nguoi_dung->id,
+                'id_don_hang' => $thong_tin_don_hang->id,
+                'trang_thai_cu' => $thong_tin_don_hang->trang_thai,
+                'trang_thai_moi' => $trang_thai_moi,
+                'ngay_notice' => $cur_date
+            ]);
+        }
+
         return response()->json(['message' => 'done'], 200);
+    }
+
+    function notice(){
+        $id_nguoi_dung = $_GET['id_nguoi_dung'];
+        $id_don_hang = $_GET['id_don_hang'];
+
+        //echo $id_nguoi_dung . ' - ' . $id_don_hang;
+        $ds_notice = DB::table('bs_notice_don_hang')
+        ->where('id_nguoi_dung', $id_nguoi_dung)
+        ->where('id_don_hang', $id_don_hang)
+        ->get();
+
+        DB::table('bs_notice_don_hang')
+        ->where('id_nguoi_dung', $id_nguoi_dung)
+        ->where('id_don_hang', $id_don_hang)
+        ->delete();
+
+        return response()->json($ds_notice, 200);
     }
 }

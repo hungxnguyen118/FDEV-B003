@@ -96,6 +96,47 @@ class UserController extends Controller
         else {
             return redirect($_SERVER['HTTP_REFERER']);
         }
+    }
+
+
+    function thong_tin_tai_khoan (){
+        if(Session::has('user_info')){
+            $user_info = Session::get('user_info');
+
+            $thong_tin_ca_nhan = DB::table('bs_nguoi_dung')
+            ->select('id','ho_ten','email','dia_chi','dien_thoai')
+            ->where('id', $user_info->id)
+            ->first();
+            //echo '<pre>',print_r($user_info),'</pre>';
+            return view('trang_thong_tin_ca_nhan')->with('thong_tin_ca_nhan', $thong_tin_ca_nhan);
+        }
+        else {
+            return redirect('/');
+        }
+    }
+
+    function update_thong_tin_tai_khoan(Request $request){
+
+        if(Session::has('user_info')){
+            $user_info = Session::get('user_info');
+
+            $ho_ten = $request->get('ho_ten');
+            $dien_thoai = $request->get('dien_thoai');
+            $dia_chi = $request->get('dia_chi');
+
+            DB::table('bs_nguoi_dung')
+            ->where('id', $user_info->id)
+            ->update([
+                'ho_ten' => $ho_ten,
+                'dien_thoai' => $dien_thoai,
+                'dia_chi' => $dia_chi,
+            ]);
+
+            return redirect($_SERVER['HTTP_REFERER'])->with('notice_success', 'Cập nhật thông tin cá nhân thành công');
+        }
+        else {
+            return redirect('/');
+        }
         
     }
 }
