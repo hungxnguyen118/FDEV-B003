@@ -29,6 +29,11 @@ Route::get('/test-1', 'App\Http\Controllers\test_controller@test_1');
 
 Route::post('/test-2', 'App\Http\Controllers\test_controller@test_2');
 
+Route::get('/test-chat', 'App\Http\Controllers\test_controller@test_chat');
+
+Route::post('/test-chat', 'App\Http\Controllers\test_controller@send_message_to_Pusher');
+Route::post('/create-room-chat', 'App\Http\Controllers\test_controller@create_room');
+
 Route::resource('/test-resource', App\Http\Controllers\TestResourceController::class);
 
 // Route::get('thu-nghiem/{id_user}', function ($id_user) {
@@ -132,6 +137,8 @@ Route::get('/admin/ql-sach/thung-rac/refresh{id}', 'App\Http\Controllers\SachAdm
 
 Route::get('/admin/ql-don-hang', 'App\Http\Controllers\DonHangAdminController@index')->middleware([EnsureAdminRole::class]);
 Route::get('/admin/ql-don-hang/pagination/{page}', 'App\Http\Controllers\DonHangAdminController@load_per_page');
+
+Route::get('/admin/chat-support', 'App\Http\Controllers\ChatAdminController@index')->middleware([EnsureAdminRole::class]);
 
 
 /* generate data */

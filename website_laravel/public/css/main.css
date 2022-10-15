@@ -455,11 +455,42 @@ footer.footer-content .footer-trust img{
 	border: 1px solid #ccc;
 }
 
-.include_all .form_chat {
+.include_all .form_chat_container {
 	height: 0px;
 	background: #ccc;
 	transition: ease all 0.5s;
 }
+
+.include_all .form_chat_container .form_chat {
+	height: 232px;
+	overflow-y: scroll;
+}
+
+.include_all .list_message_chat {
+    padding: 8px;
+}
+
+.include_all .item_chat {
+    background: #fff;
+    max-width: 80%;
+    padding: 10px;
+    margin: 0 0 8px 0;
+    border-radius: 8px 8px 8px 0;
+}
+
+.include_all .ho_ten_nguoi_chat {
+    font-weight: bold;
+}
+
+.include_all .item_chat.myself {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0 8px auto;
+    background: #337ab7;
+    color: #fff;
+    border-radius: 8px 8px 0 8px;
+}
+
 
 .container_ds_don_hang .item_don_hang {
     margin: 24px 0;
@@ -565,5 +596,16 @@ footer.footer-content .footer-trust img{
 }
 
 .container_thong_tin_ca_nhan .image_user img {
+	width: 100%;
+}
+
+.icon_chat {
+	width: 70px;
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+}
+
+.icon_chat img {
 	width: 100%;
 }

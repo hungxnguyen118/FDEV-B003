@@ -48,4 +48,5 @@
       <script src="js/custom_script.js"></script>
       <!-- ck editor -->
     <script type="text/javascript" src="assets/ckeditor/ckeditor.js"></script>
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
   </head>
