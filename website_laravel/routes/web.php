@@ -32,6 +32,7 @@ Route::post('/test-2', 'App\Http\Controllers\test_controller@test_2');
 Route::get('/test-chat', 'App\Http\Controllers\test_controller@test_chat');
 
 Route::post('/test-chat', 'App\Http\Controllers\test_controller@send_message_to_Pusher');
+Route::post('/admin-chat', 'App\Http\Controllers\test_controller@send_message_to_Pusher_via_admin');
 Route::post('/create-room-chat', 'App\Http\Controllers\test_controller@create_room');
 
 Route::resource('/test-resource', App\Http\Controllers\TestResourceController::class);

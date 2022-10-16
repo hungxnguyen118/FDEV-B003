@@ -25,6 +25,7 @@
 
     var user_email = "{{session('user_info')->email}}";
     var user_name = "{{session('user_info')->ho_ten}}";
+    var user_id = "{{session('user_info')->id}}";
     var room_or_not = 0;
 
     // Enable pusher logging - don't include this in production
@@ -81,6 +82,8 @@
             if(room_or_not == 0){
                 $.post('/create-room-chat', {
                     'user_email': user_email,
+                    'user_name': user_name,
+                    'user_id': user_id,
                     '_token': token
                 })
                 .done((result) => {
@@ -91,6 +94,7 @@
                             'message': message,
                             'user_email': user_email,
                             'user_name': user_name,
+                            'user_id': user_id,
                             '_token': token
                         })
                         .done((result) => {
@@ -105,6 +109,7 @@
                     'message': message,
                     'user_email': user_email,
                     'user_name': user_name,
+                    'user_id': user_id,
                     '_token': token
                 })
                 .done((result) => {

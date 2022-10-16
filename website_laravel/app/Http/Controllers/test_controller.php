@@ -60,6 +60,7 @@ class test_controller extends Controller
         $message = $request->get('message');
         $user_email = $request->get('user_email');
         $user_name = $request->get('user_name');
+        $user_id = $request->get('user_id');
 
         $pusher = new Pusher\Pusher(
             "e836754de27fb45a4173",
@@ -74,12 +75,41 @@ class test_controller extends Controller
         $pusher->trigger('my-channel', $user_email, array(
             'message' => $message,
             'user_email' => $user_email,
-            'user_name' => $user_name
+            'user_name' => $user_name,
+            'user_id' => $user_id
+        ));
+    }
+
+
+    function send_message_to_Pusher_via_admin(Request $request){
+        $message = $request->get('message');
+        $user_email = $request->get('user_email');
+        $user_email_self = $request->get('user_email_self');
+        $user_name = $request->get('user_name');
+        $user_id = $request->get('user_id');
+
+        $pusher = new Pusher\Pusher(
+            "e836754de27fb45a4173",
+            "aa9c27531fe9a73c107b",
+            "233726",
+            array(
+                'cluster' => 'mt1', 
+                'useTLS' => false
+            )
+        );
+
+        $pusher->trigger('my-channel', $user_email, array(
+            'message' => $message,
+            'user_email' => $user_email_self,
+            'user_name' => $user_name,
+            'user_id' => $user_id
         ));
     }
 
     function create_room(Request $request){
         $user_email = $request->get('user_email');
+        $user_name = $request->get('user_name');
+        $user_id = $request->get('user_id');
 
         $pusher = new Pusher\Pusher(
             "e836754de27fb45a4173",
@@ -93,6 +123,8 @@ class test_controller extends Controller
 
         $pusher->trigger('my-channel', 'create-room', array(
             'user_email' => $user_email,
+            'user_name' => $user_name,
+            'user_id' => $user_id
         ));
     }
 }
